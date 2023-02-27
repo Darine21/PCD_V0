@@ -3,6 +3,9 @@ import './Welcome.css'
 const welcome =()=>{
     return(
         <header>
+            <section id="home">
+
+           
             <div className="contrainer">
               <div className="center" >
                 <h1 className="title"> WELCOME </h1>
@@ -14,6 +17,7 @@ const welcome =()=>{
                 <button className="BUTTT">CHECK YOUR SKIN  !</button>
              </div>
             </div>
+          </section>
         </header>
     )
 }

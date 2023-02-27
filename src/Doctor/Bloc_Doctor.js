@@ -9,6 +9,7 @@ import ava03 from "../Asset/dr-mazen.webp";
 import ava04 from "../Asset/aaaa.jpg";
 
 const Testimonial = () => {
+
     const settings = {
         dots: true,
         infinite: true,
@@ -37,13 +38,14 @@ const Testimonial = () => {
             },
         ],
     };
+    
 
     return (
-<div id="medcin">
-        <Slider {...settings} >
+
+        <Slider {...settings}>
 
             <div className="testimonial py-4 px-3">
-
+           
 
                 <div className="mt-3 d-flex align-items-center gap-4">
                     <img src={ava01} alt="" className="w-25 h-25 rounded-2" />
@@ -103,8 +105,9 @@ const Testimonial = () => {
                     </div>
                 </div>
             </div>
-        </Slider> </div>
+        </Slider>
     );
+  
 };
 
 export default Testimonial;
