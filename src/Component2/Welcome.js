@@ -12,7 +12,7 @@ const welcome =()=>{
                 <h2 className="sub-title">
                  Welcome to our skin cancer check-up website! Our goal is to provide you with the information and resources you need to stay informed and proactive about your skin health. 
                  Whether you're looking for advice on self-examination, or want to schedule an appointment with a dermatologist, we're here to help.
-                 Thank you for visiting and taking the first step towards healthier, happier skin.     
+                 Thank you for visiting and taking the first step towards healthier, happier skin.§§§§§§§§§§§§§     
                 </h2>
                 <button className="BUTTT">CHECK YOUR SKIN  !</button>
              </div>
