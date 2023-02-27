@@ -1,0 +1,55 @@
+header {
+    
+    background-color: #d2d1cf;
+}
+     
+h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    font-size: 100px;
+}
+
+.title{
+    font-size: 100px;
+}
+.container{
+   text-align: center; 
+   
+}
+    
+.center {
+ 
+   font-size:  24px;
+   border-radius: 3px;
+   border:white 3px solid;   
+    margin: auto;
+    padding: 20px;
+    width: 50%;
+    text-align: center;
+    background-color: white;
+    margin-top: 30px;
+}
+.sub-title{
+    font-size: 19px;
+}
+h2{
+    
+    
+    margin-top: 30px;
+    justify-content: center;
+    align-items: center;
+
+    
+  }
+  .BUTTT{
+    margin-top: 30px;
+  }  
+
+  
+  button {
+    margin-top: 60px;
+    border-radius: 3px;
+  }
+
