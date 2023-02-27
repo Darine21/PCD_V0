@@ -39,8 +39,8 @@ const Testimonial = () => {
     };
 
     return (
-
-        <Slider {...settings}>
+<div id="medcin">
+        <Slider {...settings} >
 
             <div className="testimonial py-4 px-3">
 
@@ -103,7 +103,7 @@ const Testimonial = () => {
                     </div>
                 </div>
             </div>
-        </Slider>
+        </Slider> </div>
     );
 };
 

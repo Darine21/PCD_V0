@@ -20,7 +20,7 @@ function ColorSchemesExample() {
             <Nav.Link className="active" href="#home" >Home</Nav.Link>
             <Nav.Link className="in" href="#info">Info</Nav.Link>
             <Nav.Link className="hw" href="#work">How it works</Nav.Link>
-            <Nav.Link className="med" href="#medcien"> Our Doctors </Nav.Link>
+            <Nav.Link className="med" href="#medcin"> Our Doctors </Nav.Link>
             {/* <HashLink smooth to="#test">
                Link to Hash Fragment
             </HashLink> */}
