@@ -39,7 +39,7 @@ const Testimonial = () => {
     };
 
     return (
-<div id="medcin">
+<div id="medecin">
         <Slider {...settings} >
 
             <div className="testimonial py-4 px-3">
