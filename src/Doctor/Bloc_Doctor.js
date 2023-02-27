@@ -44,10 +44,7 @@ const Testimonial = () => {
 
 <div id="medecin">
         <Slider {...settings} >
-=======
 
-        <Slider {...settings}>
->>>>>>> 692ff6ab75d41ed1eee7577d68a6892b5ab0b31d
 
             <div className="testimonial py-4 px-3">
            
@@ -72,7 +69,7 @@ const Testimonial = () => {
                         <h6 className="mb-0 mt-3"> Dr Sofian Ayedi </h6>
                         <p className="section__description">Le Docteur Sofien AYADI est:
 
-                            Spécialiste en chirurgie digestive depuis 2007
+                            Spécialiste en chirurgie digestive depuis 200000000007
                             Professeur agrégé en chirurgie viscérale en 2013
                             Ancien interne en chirurgie bariatrique à Bruxelles en 2008 (ULB université)
                             Multiples stages de cours intensifs en chirurgie bariatrique a l’IRCAD (Strasbourg)
@@ -110,7 +107,7 @@ const Testimonial = () => {
                     </div>
                 </div>
             </div>
-        </Slider>
+        </Slider> </div>
     );
   
 };
