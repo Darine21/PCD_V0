@@ -6,7 +6,7 @@ import Information from './Information/Info';
 import Footere from './Footere/Footer';
 import Bloc_Doctor from './Doctor/Bloc_Doctor.js';
 import Bar from './Navvv/Bar'
-
+import Howit from './Howit/Howit'
  class App extends Component{
     render(){
       return (
@@ -16,6 +16,7 @@ import Bar from './Navvv/Bar'
         <Information />
         <Bar/>
         <Bloc_Doctor/>
+        <Howit/>
         <Footere/>
         
         </Fragment>  

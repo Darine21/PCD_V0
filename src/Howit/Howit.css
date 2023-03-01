@@ -1,0 +1,49 @@
+.download-section {
+  background-image: url('../Asset/ho.jpg');
+  background-size: 900px;
+  background-position: center right;
+  background-repeat: no-repeat;
+  width: 300%;
+  height: 400%;
+}
+   
+
+
+.image-accordion {
+    /* background-color: aliceblue; */
+    position: relative;
+    left: 4rem;
+    bottom: 4rem;
+    height: 35rem;
+    max-width: auto;
+  }
+  
+  @media (max-width: 1500px) {
+    .image-accordion {
+      left: 0rem;
+      height: 30rem;
+    }
+  }
+  
+  @media (max-width: 1199px) {
+    .image-accordion {
+      bottom: 4rem;
+      height: 26rem;
+      right: 2rem;
+    }
+  }
+  
+  @media (max-width: 991px) {
+    .image-accordion {
+      bottom: 4rem;
+      height: auto;
+      width: 100%;
+    }
+  }
+  .bb{
+    border: 4px;
+    position: absolute;
+    right: 12px;
+
+  }
+  
