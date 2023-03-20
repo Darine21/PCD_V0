@@ -4,7 +4,7 @@ import {Navbar , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap'
 import { HashLink } from 'react-router-hash-link';
 
 import './Nav.css';
-import Image from '../../Asset/a.jpg';
+
 import Logo from '../../Asset/logo (1).png'
 function ColorSchemesExample() {
   return (

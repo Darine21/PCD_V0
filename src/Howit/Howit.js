@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Howit.css";
+import Page from "./../Page/Pageexplicatif";
 
 export default function AccordionWithImg() {
   const [open1, setOpen1] = useState(false);
@@ -53,8 +54,7 @@ export default function AccordionWithImg() {
                   >
                     <div className="card-body" href="heading-1-1">
                       <p>
-                        You can integrate any supported identity provider such
-                        as Google, Active Directory, Github, and Keyclock
+                       <Page/>
                       </p>
                     </div>
                   </div>
