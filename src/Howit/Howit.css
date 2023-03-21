@@ -16,6 +16,12 @@
     bottom: 4rem;
     height: 35rem;
     max-width: auto;
+    background-image: url('../Asset/ho.jpg');
+    background-size: 900px;
+    background-position: center right;
+    background-repeat: no-repeat;
+    width: 300%;
+    height: 400%;
   }
   
   @media (max-width: 1500px) {

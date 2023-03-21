@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import "./Howit.css";
 import Page from "./../Page/Pageexplicatif";
-
+import LOG1 from "./../Asset/cappp.png";
+import LOG2 from "./../Asset/capture.png"
+import LOG3 from "./../Asset/id.png"
 export default function AccordionWithImg() {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -22,7 +24,7 @@ export default function AccordionWithImg() {
   return (
     <>
       <section
-        className="download-section "
+        className="download-section "  id="work"
         
       >
         <div className="container">
@@ -42,8 +44,9 @@ export default function AccordionWithImg() {
                     aria-expanded={open1}
                     aria-controls="collapse-1-1"
                   >
-                    <h6 className="mb-0">
-                      <span className="ti-gallery mr-3"></span> How start
+                    <h6 className="mb-0" style={{textAlign:"center" }} >
+                      <span className="ti-gallery mr-3" ></span> <img src={LOG3} position="left" /> 
+                       How get to starting?
                     </h6>
                   </div>
                   <div
@@ -71,7 +74,7 @@ export default function AccordionWithImg() {
                     aria-controls="collapse-1-2"
                   >
                     <h6 className="mb-0">
-                      <span className="ti-gallery mr-3"></span> How chatting
+                      <span className="ti-gallery mr-3"></span> <img src={LOG2} position="left" /> How chatting
                       with a doctor?
                     </h6>
                   </div>
@@ -81,10 +84,11 @@ export default function AccordionWithImg() {
                     aria-labelledby="heading-1-2"
                     data-parent="#accordion-1"
                   >
-                    <div className="card-body" href="heading-1-2">
+                    <div className="card-body" href="heading-1-2" style={{textAlign:"left",fontSize:21}}>
                       <p>
-                        You can integrate any supported identity provider such
-                        as Google, Active Directory, Github, and Keyclock
+                      If the result is serious, the patient can also consult one of the doctors listed on our website. In this case, the result in the form of a PDF is automatically sent to the chosen doctor. 
+                      In addition, the patient can chat with the doctor and ask all questions related to their condition, as well as the necessary analyses or diagnoses, and the doctor will respond to these questions.
+                      Also,if the result is not serious, the patient also has the option to consult a doctor to receive counseling or to visit our visibility space.
                       </p>
                     </div>
                   </div>
@@ -99,8 +103,9 @@ export default function AccordionWithImg() {
                     aria-expanded={open3}
                     aria-controls="collapse-1-3"
                   >
-                    <h6 className="mb-0">
-                      <span className="ti-gallery mr-3"></span> To schedule a consultation 
+                    <h6 className="mb-0"  >
+                    
+                      <span className="ti-gallery mr-3"></span>  <img src={LOG1} />    To schedule a consultation 
                     </h6>
                   </div>
                   <div
@@ -109,10 +114,10 @@ export default function AccordionWithImg() {
                     aria-labelledby="heading-1-3"
                     data-parent="#accordion-1"
                   >
-                    <div className="card-body" href="heading-1-3">
+                    <div className="card-body" href="heading-1-3" >
+                    
                       <p>
-                        You can integrate any supported identity provider such
-                        as Google, Active Directory, Github, and Keyclock
+                      The patient can view the calendar posted by the doctor to schedule an appointment based on their availability and the availability of the doctor, or call the doctor directly.
                       </p>
                     </div>
                   </div>

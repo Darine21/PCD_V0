@@ -1,4 +1,5 @@
 import React from "react";
+import LOG from "../../Asset/loog1.png"
 
 import {Navbar , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
 import { HashLink } from 'react-router-hash-link';
@@ -12,6 +13,7 @@ function ColorSchemesExample() {
       <Navbar expend="lg">
         <Container>
         <Navbar.Brand   style={{fontSize:40,color:'hsla(30, 59%, 45%, 0.902)'} } href="#home"    >
+          <img src={LOG} />
           Cancer-check-up </Navbar.Brand>
   
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
