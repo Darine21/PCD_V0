@@ -1,14 +1,16 @@
-import React from "react";
+import React ,{useState}from "react";
 import LOG from "../../Asset/loog1.png"
-
-import {Navbar , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
+import Contact from '../Connexion1/Contact';
+import { Link } from "react-router-dom";
+import {Navbar ,NavLink , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
 import { HashLink } from 'react-router-hash-link';
 
 import './Nav.css';
-
-import Logo from '../../Asset/logo (1).png'
 function ColorSchemesExample() {
+ 
+
   return (
+    <>
 
       <Navbar expend="lg">
         <Container>
@@ -19,7 +21,7 @@ function ColorSchemesExample() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav" style={{height: '300%' }}>
           <Nav className="ml-auto" >
-            <Nav.Link className="active" href="#home" >Home</Nav.Link>
+            <NavLink className="active" href="#home" >Home</NavLink>
             <Nav.Link className="in" href="#info">Info</Nav.Link>
             <Nav.Link className="hw" href="#work">How it works</Nav.Link>
             <Nav.Link className="med" href="#medecin"> Our Doctors </Nav.Link>
@@ -27,14 +29,23 @@ function ColorSchemesExample() {
                Link to Hash Fragment
             </HashLink> */}
         
-            <Nav.Link className="buttons" href="#contact">
+            <Link to="/contact" className="buttons" >
             
-              <button> CONNEXION </button>
-            </Nav.Link>
+              <button > CONNEXION   </button>
+             
+              
+            </Link>
           </Nav>
+         
         </Navbar.Collapse>
+       
         </Container>
+        
+      
+
       </Navbar>
+      
+    </>
   );
 }
 

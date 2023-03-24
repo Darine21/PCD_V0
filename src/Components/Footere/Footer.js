@@ -20,7 +20,7 @@ export default function Footer({ space }) {
                    Pour obtenir nos dernières recommandations, abonnez-vous 
                   </p>
                   
-                  <form>
+                  <form >
                       <input
                        className='footer-input'
                        type='email'

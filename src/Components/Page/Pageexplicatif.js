@@ -1,8 +1,8 @@
 import React from "react";
-import Logo from './../Asset/iner.png'
-import Logo1 from './../Asset/loog 2.png'
-import Logo2 from './../Asset/SATIS.png'
-import Logo3 from './../Asset/LOOG3.png'
+import Logo from '../../Asset/iner.png'
+import Logo1 from '../../Asset/loog 2.png'
+import Logo2 from '../../Asset/SATIS.png'
+import Logo3 from '../../Asset/LOOG3.png'
 export default function Explication() {
     
     

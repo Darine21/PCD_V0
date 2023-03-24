@@ -1,0 +1,45 @@
+.f{
+    background-color: #fff;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+
+}
+form .form-control{
+    margin: 10px 0px;
+    border: none;
+} 
+form .aa{
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border: 1px solid #0c0b0b;
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    color: #333;
+    font-size: 17px;
+    outline:none;
+
+}
+form .aa:hover{
+border: 1px;
+
+
+}
+form .bo{
+    width: 20%;
+    margin-top: 10px;
+    height: 300%;
+    text-align: center;
+    position: relative;
+    background-color: #fff;
+    left: 40%;
+    
+
+}

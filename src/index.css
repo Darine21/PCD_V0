@@ -44,7 +44,7 @@ p{
 }
 button{
   text-align: center;
-  box-sizing: border-box;
+  box-sizing: 1PX;
   height: 40px;
 }
 

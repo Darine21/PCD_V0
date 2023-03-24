@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import "./Howit.css";
-import Page from "./../Page/Pageexplicatif";
-import LOG1 from "./../Asset/cappp.png";
-import LOG2 from "./../Asset/capture.png"
-import LOG3 from "./../Asset/id.png"
+import Page from "../Page/Pageexplicatif";
+import LOG1 from "../../Asset/cappp.png";
+import LOG2 from "../../Asset/capture.png";
+import LOG3 from "../../Asset/id.png";
 export default function AccordionWithImg() {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);

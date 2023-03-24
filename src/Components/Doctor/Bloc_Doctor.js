@@ -3,10 +3,10 @@ import Slider from "react-slick";
 
 import "./Bloc_Doctor.css";
 
-import ava01 from "../Asset/dr_slim_kassar-min.webp";
-import ava02 from "../Asset/SOFIAN.webp";
-import ava03 from "../Asset/dr-mazen.webp";
-import ava04 from "../Asset/aaaa.jpg";
+import ava01 from "../../Asset/dr_slim_kassar-min.webp";
+import ava02 from "../../Asset/SOFIAN.webp";
+import ava03 from "../../Asset/dr-mazen.webp";
+import ava04 from "../../Asset/aaaa.jpg";
 
 const Testimonial = () => {
 

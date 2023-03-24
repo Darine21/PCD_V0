@@ -1,0 +1,30 @@
+.pp{
+    position:relative;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 600px;
+    width: 20%;
+    height: 50%;
+    text-align: center;
+
+
+}
+.bbb{
+  
+    display: flex;
+    margin-top: 30px;
+    margin-left: 600px;
+    width: 20%;
+    height: 100%;
+    text-align: center !important;
+    
+
+}
+.tiltle1{
+    text-align: center;
+   
+}
+.é2{
+    text-align: center;
+    margin-top: 20px;
+}
