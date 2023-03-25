@@ -1,0 +1,134 @@
+import React,{useState}from 'react';
+import './Formulairepat.css'
+function InscriptionPatient() {
+    const [no, setNo] = useState('');
+    const [prenomm, setPrenomm] = useState('');
+    const [Password, setPassword] = useState('');
+    const [email, setemail] = useState('');
+    const [selectedOption, setSelectedOption] = useState('');
+    const [numero, setnumero] = useState('');
+
+    const handleSelect = (event) => {
+      setSelectedOption(event.target.value);
+    }
+    const [selectedSpeciality, setSelectedSpeciality] = useState('');
+
+const handleSpecialityChange = (event) => {
+setSelectedSpeciality(event.target.value);
+};
+    
+    return(
+        
+        <form>
+<h1 className='in'> 
+Patient Registration
+</h1>
+        <div className='chan'>
+               <h6 className='ee'>
+            Family name 
+        </h6>
+        <label>
+        <input type="text" value={no} onChange={(e) => setNo(e.target.value)} placeholder="Your family name" />
+      </label>
+      
+      <label className='tit'>
+        <h6 className='RR'>
+            Name
+        </h6>
+       
+        <input type="text" value={prenomm} onChange={(e) => setPrenomm(e.target.value)} placeholder=" Your name" />
+      </label>
+        </div>
+        <div className='chan'>
+        <h4 className='ee'>
+         Email:
+        </h4>
+        <label>
+        <input type="text" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Your email" />
+      </label>
+      
+      <label className='tit'>
+
+        <input type="number" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder=" Password" />
+      </label>
+        </div>
+        <div className='chan'>
+        <label for="birthday" className='e' style={{fontFamily:""}}>Birthday day :</label>
+        <div>
+        <input type="date" id="birthday" name="birthday"/>
+        </div>
+        </div>
+        <div className='chan'> 
+            <h6 className='cha'>
+                Your Region :
+            </h6>
+            <select id="region">
+  <option value={"c"}> select your region </option>              
+  <option value="ariana">Ariana</option>
+  <option value="beja">Béja</option>
+  <option value="benarous">Ben Arous</option>
+  <option value="bizerte">Bizerte</option>
+  <option value="gabes">Gabès</option>
+  <option value="gafsa">Gafsa</option>
+  <option value="jendouba">Jendouba</option>
+  <option value="kairouan">Kairouan</option>
+  <option value="kasserine">Kasserine</option>
+  <option value="kebili">Kébili</option>
+  <option value="kef">Le Kef</option>
+  <option value="mahdia">Mahdia</option>
+  <option value="manouba">La Manouba</option>
+  <option value="medenine">Médenine</option>
+  <option value="monastir">Monastir</option>
+  <option value="nabeul">Nabeul</option>
+  <option value="sfax">Sfax</option>
+  <option value="sidi_bouzid">Sidi Bouzid</option>
+  <option value="siliana">Siliana</option>
+  <option value="sousse">Sousse</option>
+  <option value="tataouine">Tataouine</option>
+  <option value="tozeur">Tozeur</option>
+  <option value="tunis">Tunis</option>
+  <option value="zaghouan">Zaghouan</option>
+</select>
+
+        </div>
+        
+
+        <div className='radio-buttons'  >
+        <h5 className='cha'>
+            Sex :
+        </h5>
+            <input type="radio" value="Option 1" checked={selectedOption === 'Option 1'} onChange={handleSelect} />
+              <label>Women</label>
+
+            <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect}  />
+            <label>Man </label>
+
+          
+           <style>
+        {`
+          .radio-buttons input[type="radio"] {
+            margin-right: 20px;
+            margin-top: 20px;
+            margin-left: 10px;
+          }
+        `}
+      </style>
+         
+        </div>
+        <div className='cha'>
+        <h6 className='ee'>
+            Your phone
+        </h6>
+        <label>
+        <input type="number" value={numero} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
+      </label>
+        </div>
+
+        <button className='ch'>
+            Save and Register 
+        </button>
+        </form>
+    )
+
+}
+export default InscriptionPatient;

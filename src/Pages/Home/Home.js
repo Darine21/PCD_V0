@@ -6,6 +6,8 @@ import Footere from '../../Components/Footere/Footer';
 import Bloc_Doctor from '../../Components/Doctor/Bloc_Doctor.js';
 import Bar from '../../Components/Navvv/Bar';
 import Howit from '../../Components/Howit/Howit';
+import Formmedcien  from'../../Components/Formulaire/Formumedcien';
+import Patient from '../../Components/Formulaire/Formulairepat';
  class Home extends Component{
     render(){
       return (
@@ -17,6 +19,7 @@ import Howit from '../../Components/Howit/Howit';
     < Bar/>  
     < Bloc_Doctor/>
     < Footere/>
+    
         </> 
       );
     }

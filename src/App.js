@@ -4,7 +4,9 @@ import { BrowserRouter, Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
-import Home from './Pages/Home/Home'
+import Home from './Pages/Home/Home';
+import Formupatient from './Components/Formulaire/Formulairepat';
+import Formmedcien  from'./Components/Formulaire/Formumedcien';
  class App extends Component{
     render(){
       return (
@@ -21,6 +23,12 @@ import Home from './Pages/Home/Home'
         </Routes>
         <Routes>
         <Route path="/Signup" element={< Signn/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/doctor" element={< Formmedcien/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/patient" element={< Formupatient/>}/> 
         </Routes>
         </BrowserRouter>
        

@@ -1,0 +1,63 @@
+.radio-buttons  {
+    margin-bottom: 30px;
+    
+  }
+  .hh{
+    margin-top: 20px;
+  }
+.grand{
+    width: 100%;
+    height: 60px;
+    background-color: #fff;
+    border: 1px solid #0c0b0b;
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+    color: #d2d1cf;
+    font-size: 17px;
+    outline:none;
+
+}
+.tit{
+    margin-left: 60px;
+}
+.ee{
+    margin-top: 23px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.RR{
+    margin-block-start: 10px;
+    margin-top: -25px;
+  
+}
+.nombre-label {
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 10px;
+  }
+
+  input[type="number"] {
+    width: 190px;
+    padding: 4px;
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type="checkbox"] {
+    margin-right: 20px; /* ajoute une marge à droite */
+  }
+  .eee{
+    margin-top: 20px;
+    margin-left: 60px;
+  }
+  /*.check{
+    font-size: 30px;
+    font-family: 'arial';
+  }*/

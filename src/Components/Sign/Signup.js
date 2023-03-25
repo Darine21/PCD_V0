@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './Signup.css';
 function signup (){
     return(
@@ -10,10 +11,14 @@ function signup (){
             </h1> 
        
            <h2 className="é2">As begin</h2>
+           <Link to={"/doctor"} >
         <button className="bbb">
          Doctor
         </button>
+        </Link >
+        <Link to={"/patient"}>
         <button className="pp">Patient</button>
+        </Link>
         </div>
        
     
