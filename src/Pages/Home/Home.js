@@ -8,6 +8,10 @@ import Bar from '../../Components/Navvv/Bar';
 import Howit from '../../Components/Howit/Howit';
 import Formmedcien  from'../../Components/Formulaire/Formumedcien';
 import Patient from '../../Components/Formulaire/Formulairepat';
+import Liste from '../../Components/Liste/Liste.js';
+import Msg from '../../Components/Mesangerie/Msg';
+import Copm from '../../Components/Money/Money';
+import Visit from '../../Components/Dossier/Dossier';
  class Home extends Component{
     render(){
       return (
@@ -19,6 +23,7 @@ import Patient from '../../Components/Formulaire/Formulairepat';
     < Bar/>  
     < Bloc_Doctor/>
     < Footere/>
+    
     
         </> 
       );

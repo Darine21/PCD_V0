@@ -8,6 +8,14 @@ import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat';
 import Formmedcien from './Components/Formulaire/Formumedcien';
 import Paccount from './Components/patient acount/Paccount';
+import Formmedcien  from'./Components/Formulaire/Formumedcien';
+import Bloc_Doctor from './Components/Doctor/Bloc_Doctor.js';
+import Interface from './Components/Interface/interfacepa';
+import Agenda from './Components/Agenda/Agenda';
+import Liste from './Components/Liste/Liste.js';
+import Msg from './Components/Mesangerie/Msg';
+import Visit from './Components/Dossier/Dossier';
+import Tarif from './Components/Money/Money';
  class App extends Component{
     render(){
       return (
@@ -30,11 +38,28 @@ import Paccount from './Components/patient acount/Paccount';
         </Routes>
         <Routes>
         <Route path="/patient" element={< Formupatient/>}/> 
-            </Routes> 
-          <Routes>
+        </Routes>
+        <Routes>
+        <Route path="/interface" element={< Interface/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/agenda" element={< Agenda/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/liste-patients" element={< Liste/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/msg" element={< Msg/>}/> 
+        </Routes>
+        <Routes>
+        <Route path="/tar" element={< Tarif />}/> 
+        </Routes>
+        <Routes>
+        <Route path="/dossier" element={< Visit/>}/> 
+            </Routes>
+             <Routes>
                <Route exact path="/Paccount" element={<Paccount/>} />
           </Routes>
-            
         </BrowserRouter>
        
         </> 

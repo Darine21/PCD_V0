@@ -56,7 +56,9 @@ const Testimonial = () => {
                         <h6 className="mb-0 mt-3">Dr Salim Kassar</h6>
                         <p className="section__description">Le Dr. Slim KASSAR est largement considéré comme le pionnier de la technologie moderne de greffe de cheveux, introduisant la technique FUE au public.
                             Il est reconnu internationalement pour son travail et a encadré les meilleurs médecins de greffes de cheveux du monde entier.
-                            Le Dr. Slim KASSAR a étudié la médecine et la chirurgie en France.</p>
+                            Le Dr. Slim KASSAR a étudié la médecine et la chirurgie en France. 
+                            <button>contact</button> 
+                            </p>
                     </div>
                 </div>
             </div>
@@ -68,12 +70,13 @@ const Testimonial = () => {
                     <div>
                         <h6 className="mb-0 mt-3"> Dr Sofian Ayedi </h6>
                         <p className="section__description">Le Docteur Sofien AYADI est:
-
                             Spécialiste en chirurgie digestive depuis 200000000007
                             Professeur agrégé en chirurgie viscérale en 2013
                             Ancien interne en chirurgie bariatrique à Bruxelles en 2008 (ULB université)
                             Multiples stages de cours intensifs en chirurgie bariatrique a l’IRCAD (Strasbourg)
-                            Ancien interne à l’institut Gustave Roussy, Villejuif Paris (chirurgie Carcinologique digestive)Numéro d’inscription à l’ordre des médecins : 14537</p>
+                            Ancien interne à l’institut Gustave Roussy, Villejuif Paris (chirurgie Carcinologique digestive)Numéro d’inscription à l’ordre des médecins : 14537
+                            <button>contact</button>
+                            </p>
                     </div>
                 </div>
             </div>
@@ -87,7 +90,9 @@ const Testimonial = () => {
                     <div>
                         <h6 className="mb-0 mt-3">Dr Mazen Kallel </h6>
                         <p className="section__description">Docteur Mazen Kallel est un spécialiste en gynécologie obstétrique et traitement de l’infertilité bien connu pour son dévouement et professionnalisme.
-                            Avec plus de 13 ans d’expérience, il  possède une approche holistique du traitement de l’infertilité aussi bien féminine que masculine englobant les solutions thérapeutiques, cliniques et biologiques.</p>
+                            Avec plus de 13 ans d’expérience, il  possède une approche holistique du traitement de l’infertilité aussi bien féminine que masculine englobant les solutions thérapeutiques, cliniques et biologiques.
+                            <button>contact</button>
+                            </p>
                     </div>
                 </div>
             </div>
@@ -99,11 +104,10 @@ const Testimonial = () => {
                     <div>
                         <h6 className="mb-0 mt-3">AMINI-ADLE Mona</h6>
                         <p className="section__description">Spécialités
-                            Cancers cutanés
-                            Chirurgie dermatologique
-                            Neurofibromatose de type 1
-                            Dermatoscopi
-                            Tél.: 78 78 59 96</p>
+                            Cancers cutanés ,Chirurgie dermatologique ,Neurofibromatose de type 1 ,Dermatoscopi  .
+                            Tél: 78 78 59 96
+                            <button>contact</button>
+                            </p>
                     </div>
                 </div>
             </div>
