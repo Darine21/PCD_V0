@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import "./Formulaire.css";
-    function InscriptionMedecin() {
+function InscriptionMedecin() {
           const [nom, setNom] = useState('');
           const [prenom, setPrenom] = useState('');
           const [specialite, setSpecialite] = useState('');
@@ -39,10 +39,10 @@ import "./Formulaire.css";
               <label>Résident</label>
 
             <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect}  />
-            <label>Médcin de famille </label>
+            <label>Médecin de famille </label>
 
           <input type="radio" value="Option 3" checked={selectedOption === 'Option 3'} onChange={handleSelect}  />
-           <label>Médcien spécialiste</label>
+           <label>Médecien spécialiste</label>
            <style>
         {`
           .radio-buttons input[type="radio"] {

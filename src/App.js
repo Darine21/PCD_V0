@@ -6,7 +6,8 @@ import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat';
-import Formmedcien  from'./Components/Formulaire/Formumedcien';
+import Formmedcien from './Components/Formulaire/Formumedcien';
+import Paccount from './Components/patient acount/Paccount';
  class App extends Component{
     render(){
       return (
@@ -29,7 +30,11 @@ import Formmedcien  from'./Components/Formulaire/Formumedcien';
         </Routes>
         <Routes>
         <Route path="/patient" element={< Formupatient/>}/> 
-        </Routes>
+            </Routes> 
+          <Routes>
+               <Route exact path="/Paccount" element={<Paccount/>} />
+          </Routes>
+            
         </BrowserRouter>
        
         </> 

@@ -5,12 +5,12 @@ function signup (){
     return(
     
        
-        < div className="in">
+        < div className="in" id="signup">
             <h1 className="tiltle1">
-               Connexion / Sign up 
+                Sign up As 
             </h1> 
        
-           <h2 className="é2">As begin</h2>
+         
            <Link to={"/doctor"} >
         <button className="bbb">
          Doctor

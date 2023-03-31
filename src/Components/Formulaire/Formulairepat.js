@@ -1,12 +1,22 @@
-import React,{useState}from 'react';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 import './Formulairepat.css'
+import axios from 'axios';
 function InscriptionPatient() {
-    const [no, setNo] = useState('');
-    const [prenomm, setPrenomm] = useState('');
-    const [Password, setPassword] = useState('');
+    const [familyName, setNo] = useState('');
+    const [name, setPrenomm] = useState('');
+    const [password, setPassword] = useState('');
     const [email, setemail] = useState('');
     const [selectedOption, setSelectedOption] = useState('');
-    const [numero, setnumero] = useState('');
+  const [phone, setnumero] = useState('');
+  const [birthdayDay, setBithdayday] = useState(''); 
+  const [region, setRegion] = useState(''); 
+  const [sex, setSex] = useState('');
+
+    const handleSelect1 = (event) => {
+    setSelectedOption(event.target.value);
+    setSex(event.target.value === 'Option 1' ? 'Woman' : 'Man');
+  }
 
     const handleSelect = (event) => {
       setSelectedOption(event.target.value);
@@ -15,11 +25,34 @@ function InscriptionPatient() {
 
 const handleSpecialityChange = (event) => {
 setSelectedSpeciality(event.target.value);
-};
+  }; 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('http://localhost:5000/signup', {
+    familyName,
+  name,
+  email,
+  password,
+  birthdayDay,
+  region,
+  sex,
+  phone,
+      });
+        console.log(response);
+    if (response.data) {
+      console.log(response.data);
+      // Redirect to dashboard or login page
+    }
+  } catch (error) {
+    console.log(error.response.data);
+  }
+  };
     
     return(
         
-        <form>
+        <form onSubmit={handleSubmit} >
 <h1 className='in'> 
 Patient Registration
 </h1>
@@ -28,7 +61,7 @@ Patient Registration
             Family name 
         </h6>
         <label>
-        <input type="text" value={no} onChange={(e) => setNo(e.target.value)} placeholder="Your family name" />
+        <input type="text" value={familyName} onChange={(e) => setNo(e.target.value)} placeholder="Your family name" />
       </label>
       
       <label className='tit'>
@@ -36,7 +69,7 @@ Patient Registration
             Name
         </h6>
        
-        <input type="text" value={prenomm} onChange={(e) => setPrenomm(e.target.value)} placeholder=" Your name" />
+        <input type="text" value={name} onChange={(e) => setPrenomm(e.target.value)} placeholder=" Your name" />
       </label>
         </div>
         <div className='chan'>
@@ -49,20 +82,20 @@ Patient Registration
       
       <label className='tit'>
 
-        <input type="number" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder=" Password" />
+        <input type="string" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" Password" />
       </label>
         </div>
         <div className='chan'>
         <label for="birthday" className='e' style={{fontFamily:""}}>Birthday day :</label>
         <div>
-        <input type="date" id="birthday" name="birthday"/>
+            <input type="date" id="birthday" value={ birthdayDay} name="birthday" onChange={(e) => setBithdayday(e.target.value)}/>
         </div>
         </div>
         <div className='chan'> 
             <h6 className='cha'>
                 Your Region :
             </h6>
-            <select id="region">
+            <select id="region" onChange={(e) => setRegion(e.target.value)} value={region}>
   <option value={"c"}> select your region </option>              
   <option value="ariana">Ariana</option>
   <option value="beja">Béja</option>
@@ -97,10 +130,10 @@ Patient Registration
         <h5 className='cha'>
             Sex :
         </h5>
-            <input type="radio" value="Option 1" checked={selectedOption === 'Option 1'} onChange={handleSelect} />
+            <input type="radio" value="Option 1" checked={selectedOption === 'Option 1'} onChange={handleSelect1} />
               <label>Women</label>
 
-            <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect}  />
+            <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect1}  />
             <label>Man </label>
 
           
@@ -120,13 +153,14 @@ Patient Registration
             Your phone
         </h6>
         <label>
-        <input type="number" value={numero} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
+        <input type="number" value={phone} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
       </label>
         </div>
-
-        <button className='ch'>
+        
+        <button className='ch' type='submit'>
             Save and Register 
-        </button>
+          </button>
+          
         </form>
     )
 
