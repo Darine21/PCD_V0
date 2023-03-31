@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import './Signin.css';
 function signin (){
     return(
@@ -17,10 +18,11 @@ function signin (){
             <input className="aa" placeholder="Your password"/>
             
         </div>
-        
-        <button className="bo">
+        <Link to={"/interface"}>
+        < button className="bo" >
          sublimt
         </button>
+        </Link>
         </div>
         </form>
     
