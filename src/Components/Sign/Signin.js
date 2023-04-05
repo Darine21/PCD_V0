@@ -37,19 +37,21 @@ console.log(isPatient);
   // envoyer la requête de connexion appropriée en fonction du choix de l'utilisateur
   let response;
   if (isPatient) {
-    response = await fetch('http://localhost:5000/patient/signin', {
+    response = await fetch('http://localhost:3000/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-      navigate('/Paccount');
-      console.log("logged in successufly "); 
-  } else {
-    response = await fetch('/doctor/signin', {
+    navigate('/Paccount');
+    console.log("logged in successufly "); 
+  } 
+  else {
+    response = await fetch('http://localhost:3000/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
+    navigate('/interface');
   }
 
   // traiter la réponse
@@ -63,7 +65,7 @@ console.log(isPatient);
   }
 };
 
-    return( 
+return( 
     
        <Form id="signin" className="f">
   <Card.Header className="bg-beige text-center">
@@ -97,7 +99,7 @@ console.log(isPatient);
   </Form.Group>
   <Button variant="primary" type="submit" onClick={handleSignIn}>
     connexion
-                </Button>
+  </Button>
               
 </Form>
 

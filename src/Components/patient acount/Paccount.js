@@ -2,7 +2,7 @@ import { useState } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { response } from 'express';
+
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -55,7 +55,7 @@ function Paccount() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/account');
+        const response = await axios.get('http://localhost:3000/account');
         console.log(response.data);
       } catch (error) {
        console.log("errrooorr")

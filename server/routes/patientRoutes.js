@@ -29,13 +29,13 @@ const signup = async (req, res) => {
     // Create new patient
     const newPatient = new Patient({
       familyName,
-  name,
-  email,
-  password:hashedPassword,
-  birthdayDay,
-  region,
-  sex,
-  phone,
+      name,
+      email,
+     password:hashedPassword,
+     birthdayDay,
+     region,
+     sex,
+     phone,
     });
 
     await newPatient.save();
@@ -87,7 +87,7 @@ const signin = async (req, res) => {
 };
 const isAuth =  async (req, res) => {
   if (req.session.patient) {
-    return res.json(req.session.user)
+    return res.json(req.session.patient)
   } else {
     return res.status(401).json('unauthorize')
   }

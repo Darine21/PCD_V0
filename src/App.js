@@ -6,7 +6,7 @@ import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat';
-import Formmedcien from './Components/Formulaire/Formumedcien';
+
 import Paccount from './Components/patient acount/Paccount';
 import Formmedcien  from'./Components/Formulaire/Formumedcien';
 import Bloc_Doctor from './Components/Doctor/Bloc_Doctor.js';
@@ -57,9 +57,9 @@ import Tarif from './Components/Money/Money';
         <Routes>
         <Route path="/dossier" element={< Visit/>}/> 
             </Routes>
-             <Routes>
-               <Route exact path="/Paccount" element={<Paccount/>} />
-          </Routes>
+        <Routes>
+         <Route exact path="/Paccount" element={<Paccount/>} />
+        </Routes>
         </BrowserRouter>
        
         </> 
