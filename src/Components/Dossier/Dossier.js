@@ -13,6 +13,8 @@ const Visits = () => {
   { num: "2456", date: "20-04-2023", motif: "Suivi" }, { num: "12244", date: "13-04-2023", motif: "CoNTROL" }]);
   const [search, setSearch] = useState("");
   const [showForm, setShowForm] = useState(false);
+  const [showFormM, setShowFormM] = useState(false);
+  const [shoowForm, setShoowForm] = useState(false);
   const [visitEs, setVisitEs] = useState([  { num: "1244", date: "1-04-2023", label: "Melanome" },
   { num: "2456", date: "20-04-2023", label: "Carcinome spinocellulaire" }]);
 
@@ -72,7 +74,12 @@ const Visits = () => {
 
     
 
-    
+    <div>
+        <div style={{textAlign:"center", marginTop:"90px" ,  color:"#3431f3" }}>
+        <h1 >
+            Patient details
+        </h1>
+        </div>
     <div style={{display:"flex"}}>
         
         
@@ -97,7 +104,7 @@ const Visits = () => {
             </button>
             
                 <form onSubmit={handleAddVisit}>
-                  <button className="btn btn-primary" href="#" style={{marginLeft:"555px"}} onClick={() => setShowForm(true)} >
+                  <button className="btn btn-primary"  style={{marginLeft:"555px"}} onClick={() => setShowForm(true)} >
                     Add
                   </button>
                   </form>
@@ -198,7 +205,7 @@ const Visits = () => {
             
              
                 <form onSubmit={handleAddVisite}>
-                  <button type="submit" className="btn btn-primary" href="#EE" style={{marginLeft:"358px"}} onClick={() => setShowForm(true)} >
+                  <button type="submit" className="btn btn-primary"  style={{marginLeft:"358px"}} onClick={() => setShowFormM(true)} >
                     Add
                   </button>
                   </form>
@@ -216,7 +223,7 @@ const Visits = () => {
           />
         </Form.Group>
           </div>
-          {showForm && (
+          {showFormM && (
           <form onSubmit={handleAddVisite}>
             <div className="form-group">
               <label htmlFor="date">Date</label>
@@ -297,7 +304,7 @@ const Visits = () => {
             
             
                 <form onSubmit={handleAddVisit}>
-                  <button className="btn btn-primary" href="#" style={{marginLeft:"520px"}} onClick={() => setShowForm(true)} >
+                  <button className="btn btn-primary" href="#" style={{marginLeft:"520px"}} onClick={() => setShoowForm(true)} >
                     Add
                   </button>
                   </form>
@@ -305,7 +312,7 @@ const Visits = () => {
              
             
           </nav>
-          {showForm && (
+          {shoowForm && (
           <form onSubmit={handleAddVisit}>
             <div className="form-group">
               <label htmlFor="date">number dossier</label>
@@ -386,16 +393,12 @@ const Visits = () => {
                 </div>
                </div> 
                <div>
-               <div style={{textAlign:"center", marginTop:"-900px", color:"#3431f3" }}>
-        <h1 >
-            Patient details
-        </h1>
-        </div>
+           
                </div>
                </div> 
                  </div>
                 </div>
-                
+                </div>
   )}
 
   export default Visits;

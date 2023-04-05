@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Signin.css';
 import { useContext } from "react";
-import { store } from "../../App";
+
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 
@@ -10,8 +10,7 @@ function Signin() {
     const [userType, setUserType] = useState('patient');
     const [email, setEmail] = useState(''); 
      const [password, setPassword] = useState(''); 
-      const navigate = useNavigate();  // initial user type
-       const [token,setToken] = useContext(store)
+      const navigate = useNavigate();  
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
   }
@@ -36,7 +35,7 @@ if (userType === "patient") {
   // envoyer la requête de connexion appropriée en fonction du choix de l'utilisateur
   let response;
   if (isPatient) {
-    response = await fetch('http://localhost:5000/patient/signin', {
+    response = await fetch('http://localhost:3000/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
@@ -57,16 +56,15 @@ if (userType === "patient") {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-  } 
- 
-
+    navigate('/interface');
+  }
 
   // traiter la réponse
   
  
 };
 
-    return( 
+return( 
     
        <Form id="signin" className="f">
   <Card.Header className="bg-beige text-center">
@@ -100,7 +98,7 @@ if (userType === "patient") {
   </Form.Group>
   <Button variant="primary" type="submit" onClick={handleSignIn}>
     connexion
-                </Button>
+  </Button>
               
 </Form>
 

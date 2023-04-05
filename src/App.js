@@ -6,8 +6,8 @@ import { useState , createContext} from 'react';
 import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
-import Formupatient from './Components/Formulaire/Formulairepat';
-import Formmedcien from './Components/Formulaire/Formumedcien';
+import Formupatient from './Components/Formulaire/Formulairepat' 
+import Formmedcien from './Components/Formulaire/Formumedcien'
 import Paccount from './Components/patient acount/Paccount';
 import Interface from './Components/Interface/interfacepa';
 import Agenda from './Components/Agenda/Agenda';
@@ -15,8 +15,8 @@ import Liste from './Components/Liste/Liste.js';
 import Msg from './Components/Mesangerie/Msg';
 import Visit from './Components/Dossier/Dossier';
 import Tarif from './Components/Money/Money';
-import ProtectedRoutes from "./protectedRoutes";
-export const store = createContext();
+
+
 const App = () => {
   const [token,setToken] = useState(null);
    
@@ -24,7 +24,7 @@ const App = () => {
        
       return (
         <> 
-          <store.Provider value = {[token , setToken]} >
+         
         <BrowserRouter>
         <Routes>
         <Route path="/" element={< Home/>}/> 
@@ -63,12 +63,11 @@ const App = () => {
         <Routes>
         <Route path="/dossier" element={< Visit/>}/> 
             </Routes>
-          
-              <Routes>
-              <Route path='/Paccount' element={<Paccount/>} /> 
-              </Routes>        
+        <Routes>
+         <Route exact path="/Paccount" element={<Paccount/>} />
+        </Routes>
         </BrowserRouter>
-       </store.Provider>
+     
         </> 
         
       );

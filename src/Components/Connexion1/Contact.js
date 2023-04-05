@@ -6,7 +6,8 @@ import "./Contact.css";
 function App() {
   const contactRef = useRef(null);
   const handleClick = () => {
-    contactRef.current.scrollIntoView({ behavior: "smooth" });
+    if (contactRef.current) {
+    contactRef.current.scrollIntoView({ behavior: "smooth" });}
   };
   return (
    
@@ -17,7 +18,7 @@ function App() {
       </Link>
      
       <Link to={"/Signup"}>
-      <button className="button2" onClick={handleClick}>Sign up </button>
+      <button className="button1" onClick={handleClick}>Sign up </button>
       </Link>
      </div>
      

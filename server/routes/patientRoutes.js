@@ -29,13 +29,13 @@ const signup = async (req, res) => {
     // Create new patient
     const newPatient = new Patient({
       familyName,
-  name,
-  email,
-  password:hashedPassword,
-  birthdayDay,
-  region,
-  sex,
-  phone,
+      name,
+      email,
+     password:hashedPassword,
+     birthdayDay,
+     region,
+     sex,
+     phone,
     });
 
     await newPatient.save();

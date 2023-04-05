@@ -9,6 +9,7 @@ import C from '../../Asset/COM.png';
 import D from '../../Asset/DO.png';
 import { Link } from "react-router-dom";
 
+
 function Interface (){
    
     
@@ -20,7 +21,7 @@ function Interface (){
   <Container>
   <Navbar.Brand   style={{fontSize:40,color:'hsla(30, 59%, 45%, 0.902)'} } href="#home"    >
     <img src={LO} />
-    Doctor-check-up </Navbar.Brand>
+    Doctor.familyName Doctor.Name</Navbar.Brand>
 
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav" style={{height: '300%' }}>
