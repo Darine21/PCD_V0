@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate,  useNavigate } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { response } from 'express';
+
 import { useEffect } from 'react';
 import axios from 'axios';
 
@@ -17,6 +17,7 @@ function Paccount() {
   const [gender, setGender] = useState('');
   const [anatomicalSite, setAnatomicalSite] = useState('');
   const [result, setResult] = useState('');
+  const navigate = useNavigate(); 
 
   const handleDoctorChange = (event) => {
     setDoctor(event.target.value);
@@ -31,7 +32,7 @@ function Paccount() {
   };
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    
   };
 
   const handleFormSubmit = (event) => {
@@ -40,8 +41,10 @@ function Paccount() {
   };
 
   const handleLogoutClick = () => {
-      navigate('/');  
+    localStorage.removeItem('token');
+    navigate('/signin')
   };
+ 
  
   const handleReset = () => {
     setName('');
@@ -50,25 +53,36 @@ function Paccount() {
     setAnatomicalSite('');
     setResult('');
     }; 
-    const navigate = useNavigate();  
     
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/account');
-        console.log(response.data);
-      } catch (error) {
-       console.log("errrooorr")
+    useEffect(() => {
+    const fetchPatient = async () => {
+      const token = localStorage.getItem('token');
+      console.log(token); 
+      if (token) {
+        console.log('okkk'); 
+        try {
+          const response = await axios.get('http://localhost:5000/auth-endpoint', {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+          console.log(response);
+
+        } catch (error) {
+          console.error(error);
+          
+        }
+      }
+      else {
+        navigate('/signin'); 
       }
     };
-
-    fetchData();
+    fetchPatient();
   }, []);
-
-
+   
   
+
   return (
     <Container className="py-4">
+      
       <Row>
         <Col md={6}>
           <Card>
@@ -155,4 +169,4 @@ function Paccount() {
   );
 }
 
-export default Paccount;
+export default Paccount ;

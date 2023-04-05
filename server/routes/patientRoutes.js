@@ -3,7 +3,7 @@ const session = require('express-session')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Patient = require('../models/Patient.js');
-
+const JWT_EXPIRATION_TIME = process.env.JWT_EXPIRATION_TIME;
 // user.js
 // import express-session in your code
 
@@ -68,15 +68,18 @@ const signin = async (req, res) => {
     }
 
     // Create and sign JWT token
-    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRATION_TIME });
     // ------- NEW CODE HERE
     const patientSession = { email: patient.email } // creating user session to keep user loggedin also on refresh
     req.session.patient = patientSession // attach user session to session object from express-session
+    
 
     
 
     // Return success message and token
-    res.status(200).json({ message: 'Patient signed in successfully.', patientSession });
+    return res.status(200).json({ message : "logged in successfully" ,
+      token
+    })
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -87,7 +90,7 @@ const signin = async (req, res) => {
 };
 const isAuth =  async (req, res) => {
   if (req.session.patient) {
-    return res.json(req.session.user)
+    return res.json(req.session.patient)
   } else {
     return res.status(401).json('unauthorize')
   }

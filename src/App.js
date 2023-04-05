@@ -2,24 +2,29 @@ import React, {Component, Fragment,} from 'react';
 import Contact from './Components/Connexion1/Contact';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+import { useState , createContext} from 'react';
 import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat';
 import Formmedcien from './Components/Formulaire/Formumedcien';
 import Paccount from './Components/patient acount/Paccount';
-import Formmedcien  from'./Components/Formulaire/Formumedcien';
-import Bloc_Doctor from './Components/Doctor/Bloc_Doctor.js';
 import Interface from './Components/Interface/interfacepa';
 import Agenda from './Components/Agenda/Agenda';
 import Liste from './Components/Liste/Liste.js';
 import Msg from './Components/Mesangerie/Msg';
 import Visit from './Components/Dossier/Dossier';
 import Tarif from './Components/Money/Money';
- class App extends Component{
-    render(){
+import ProtectedRoutes from "./protectedRoutes";
+export const store = createContext();
+const App = () => {
+  const [token,setToken] = useState(null);
+   
+  
+       
       return (
-        <>
+        <> 
+          <store.Provider value = {[token , setToken]} >
         <BrowserRouter>
         <Routes>
         <Route path="/" element={< Home/>}/> 
@@ -36,7 +41,8 @@ import Tarif from './Components/Money/Money';
         <Routes>
         <Route path="/doctor" element={< Formmedcien/>}/> 
         </Routes>
-        <Routes>
+            <Routes>
+              
         <Route path="/patient" element={< Formupatient/>}/> 
         </Routes>
         <Routes>
@@ -57,14 +63,16 @@ import Tarif from './Components/Money/Money';
         <Routes>
         <Route path="/dossier" element={< Visit/>}/> 
             </Routes>
-             <Routes>
-               <Route exact path="/Paccount" element={<Paccount/>} />
-          </Routes>
+          
+              <Routes>
+              <Route path='/Paccount' element={<Paccount/>} /> 
+              </Routes>        
         </BrowserRouter>
-       
+       </store.Provider>
         </> 
+        
       );
     }
-}
+
 
 export default App;

@@ -1,13 +1,17 @@
 import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Signin.css';
+import { useContext } from "react";
+import { store } from "../../App";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
+import jwt_decode from 'jwt-decode';
+
 function Signin() {
     const [userType, setUserType] = useState('patient');
     const [email, setEmail] = useState(''); 
      const [password, setPassword] = useState(''); 
       const navigate = useNavigate();  // initial user type
-
+       const [token,setToken] = useContext(store)
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
   }
@@ -18,10 +22,7 @@ function Signin() {
 const handleSignIn = async (e) => {
   e.preventDefault();
   
-    console.log(email); 
-    console.log(password); 
-
-  // déterminer si l'utilisateur est un patient ou un médecin
+ // déterminer si l'utilisateur est un patient ou un médecin
     
  let isPatient;
 
@@ -30,8 +31,6 @@ if (userType === "patient") {
 } else {
   isPatient = false;
 }
-
-console.log(isPatient);
 
 
   // envoyer la requête de connexion appropriée en fonction du choix de l'utilisateur
@@ -42,25 +41,29 @@ console.log(isPatient);
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-      navigate('/Paccount');
-      console.log("logged in successufly "); 
-  } else {
+
+    const data = await response.json();
+     console.log(data)
+    const token = data.token; 
+    localStorage.setItem('token', token);
+    const patient = jwt_decode(token); 
+    console.log(patient);
+    console.log("logged in successfully");
+    navigate('/Paccount'); 
+  } 
+ else {
     response = await fetch('/doctor/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-  }
+  } 
+ 
+
 
   // traiter la réponse
-  const data = await response.json();
-  if (response.ok) {
-    // connexion réussie, rediriger l'utilisateur
-    window.location.href = data.redirectUrl;
-  } else {
-    // afficher un message d'erreur
-    alert(data.message);
-  }
+  
+ 
 };
 
     return( 
