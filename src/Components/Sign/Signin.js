@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import './Signin.css';
 import { useContext } from "react";
-
+import axios from "axios";
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 
@@ -40,18 +40,20 @@ if (userType === "patient") {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),
     });
-
-    const data = await response.json();
-     console.log(data)
+    
+    const data =  response.data;
+     console.log(data.email)
     const token = data.token; 
     localStorage.setItem('token', token);
+    localStorage.setItem('patient', data.patient);
+    console.log(data.patient);
     const patient = jwt_decode(token); 
-    console.log(patient);
-    console.log("logged in successfully");
-    navigate('/Paccount'); 
+    console.log(typeof (patient));
+    console.log("logged in successfully");navigate('/Paccount'); 
+    
   } 
  else {
-    response = await fetch('/doctor/signin', {
+    response = await fetch('/Doctor/Signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

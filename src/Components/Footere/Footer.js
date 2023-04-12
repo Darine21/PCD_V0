@@ -99,7 +99,7 @@ export default function Footer({ space }) {
                             <span className="ti-location-pin "></span>
                             Street of Tunis 
                             <br />
-                            Sfax, Tunisia 3021
+                            Sfax, Tunisia 3041
                           </span>
                         </li>
                         <li className="mb-2 d-flex align-items-center">

@@ -4,6 +4,9 @@ import Page from "../Page/Pageexplicatif";
 import LOG1 from "../../Asset/cappp.png";
 import LOG2 from "../../Asset/capture.png";
 import LOG3 from "../../Asset/id.png";
+import {AiFillMessage} from "react-icons/ai"
+import{BsFillPatchQuestionFill} from "react-icons/bs";
+import {BsFillCalendar2DayFill} from "react-icons/bs";
 export default function AccordionWithImg() {
   const [open1, setOpen1] = useState(false);
   const [open2, setOpen2] = useState(false);
@@ -45,7 +48,7 @@ export default function AccordionWithImg() {
                     aria-controls="collapse-1-1"
                   >
                     <h6 className="mb-0" style={{textAlign:"center" }} >
-                      <span className="ti-gallery mr-3" ></span> <img src={LOG3} position="left" /> 
+                      <span className="ti-gallery mr-3" ></span> < BsFillPatchQuestionFill style={{marginLeft:"-130px"}} /> 
                        How get to starting?
                     </h6>
                   </div>
@@ -74,7 +77,7 @@ export default function AccordionWithImg() {
                     aria-controls="collapse-1-2"
                   >
                     <h6 className="mb-0">
-                      <span className="ti-gallery mr-3"></span> <img src={LOG2} position="left" /> How chatting
+                      <span className="ti-gallery mr-3"></span>< AiFillMessage style={{marginLeft:"90px"}}/>  How chatting
                       with a doctor?
                     </h6>
                   </div>
@@ -105,7 +108,7 @@ export default function AccordionWithImg() {
                   >
                     <h6 className="mb-0"  >
                     
-                      <span className="ti-gallery mr-3"></span>  <img src={LOG1} />    To schedule a consultation 
+                      <span className="ti-gallery mr-3"></span>  <BsFillCalendar2DayFill style={{marginLeft:"90px"}} />    How to schedule a consultation ?
                     </h6>
                   </div>
                   <div
