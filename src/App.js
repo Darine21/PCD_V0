@@ -18,7 +18,7 @@ import Tarif from './Components/Money/Money';
 
 
 const App = () => {
-  const [token,setToken] = useState(null);
+ 
    
   
        
@@ -41,8 +41,7 @@ const App = () => {
         <Routes>
         <Route path="/doctor" element={< Formmedcien/>}/> 
         </Routes>
-            <Routes>
-              
+            <Routes>       
         <Route path="/patient" element={< Formupatient/>}/> 
         </Routes>
         <Routes>

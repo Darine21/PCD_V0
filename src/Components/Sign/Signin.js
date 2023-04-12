@@ -35,7 +35,7 @@ if (userType === "patient") {
   // envoyer la requête de connexion appropriée en fonction du choix de l'utilisateur
   let response;
   if (isPatient) {
-    response = await fetch('http://localhost:3000/signin', {
+    response = await fetch('http://localhost:5000/patient/signin', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password }),

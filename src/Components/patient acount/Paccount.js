@@ -56,7 +56,7 @@ function Paccount() {
     
     useEffect(() => {
     const fetchPatient = async () => {
-      const token = localStorage.getItem('token');
+      let token = localStorage.getItem('token');
       console.log(token); 
       if (token) {
         console.log('okkk'); 
@@ -65,6 +65,8 @@ function Paccount() {
             headers: { Authorization: `Bearer ${token}` },
           });
           console.log(response);
+          console.log('hi'); 
+
 
         } catch (error) {
           console.error(error);

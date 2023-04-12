@@ -68,7 +68,7 @@ const signin = async (req, res) => {
     }
 
     // Create and sign JWT token
-    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRATION_TIME });
+    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET );
     // ------- NEW CODE HERE
     const patientSession = { email: patient.email } // creating user session to keep user loggedin also on refresh
     req.session.patient = patientSession // attach user session to session object from express-session
