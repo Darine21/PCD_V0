@@ -28,7 +28,7 @@ setSelectedSpeciality(event.target.value);
   }; 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+let response;
     try {
       const response = await axios.post('http://localhost:5000/signup', {
     familyName,
@@ -48,8 +48,13 @@ setSelectedSpeciality(event.target.value);
   } catch (error) {
     console.log(error.response.data);
   }
-  };
-    
+  
+
+  const data =  response.data;
+  localStorage.setItem('name', data.name );
+  localStorage.setItem('gender', data.sex);
+  localStorage.setItem('phone', data.phone );
+}; 
     return(
         
         <form onSubmit={handleSubmit} >
@@ -156,11 +161,11 @@ Patient Registration
         <input type="number" value={phone} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
       </label>
         </div>
-        
+        <Link to={"/contact"}>
         <button className='ch' type='submit'>
             Save and Register 
           </button>
-          
+          </Link>
         </form>
     )
 

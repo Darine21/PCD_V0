@@ -1,13 +1,14 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const multer = require('multer');
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 } 
 const auth = require('./auth')
 const Patient = require('./routes/patientRoutes') 
-
+const Formulaire = require('./routes/formulaireRouter');
 const Doctor= require('./routes/doctorRouter')
 const dbConnect = require("./db/dbConnect");
 
@@ -18,8 +19,8 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-
+app.use(express.static('uploads'));
+app.use(express.urlencoded({extended: true}));
 dbConnect(); 
 const session = require('express-session')
 const MongoDBStore = require('connect-mongodb-session')(session) 
@@ -85,14 +86,34 @@ app.use(
 
 
 var bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.get('/', (_req, res) => {
   res.json({ hello: "world" }); 
   
 });
+const storage = multer.diskStorage({
+  destination: function (req,file,cb){
+    cb(null,'./uploads/');
+  }, 
+  filename:function(req,file,cb){
+    const filename = `${file.originalname}`;
+    cb(null,filename);
+  }
+});
+
+const upload=multer({storage}).single('receipt');
 // Routes
 
+app.post("/upload", upload ,(req,res)=>{
+  const { file } = req;
+  res.send({
+    file: file.originalname,
+    path: file.path
+  });
+});
 
 app.post("/patient/signin", Patient.signin); 
 app.post("/patient/signup", Patient.signup);
@@ -100,6 +121,10 @@ app.get('/isAuth', Patient.isAuth);
 app.post("/doctor/signin", Doctor.login );
 app.post("/doctor/signup", Doctor.signup);
 app.get('/isAuthh', Doctor.isAuthh); 
+app.get("/patient", Patient.get );
+app.get("/patien/form",Formulaire.get);
+app.post("/formajouter",upload,Formulaire.post);
+app.post("/ajouterpatient",Patient.post);
 app.get('/sendMail', Doctor.sendMail);
 app.get('/resetPassword', Doctor.resetPassword);
 app.get('/auth-endpoint' , auth , async (req, res) => { 
@@ -109,6 +134,7 @@ app.get('/auth-endpoint' , auth , async (req, res) => {
   } 
   catch(err) {  console.log(err) }
 }); 
+
 
 
 

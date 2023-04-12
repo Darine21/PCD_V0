@@ -8,7 +8,7 @@ import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat' 
 import Formmedcien from './Components/Formulaire/Formumedcien'
-import Paccount from './Components/patient acount/Paccount';
+import Paccount from './Components/patientacount/Paccount.js';
 import Interface from './Components/Interface/interfacepa';
 import Agenda from './Components/Agenda/Agenda';
 import Liste from './Components/Liste/Liste.js';
@@ -66,6 +66,10 @@ const App = () => {
         <Routes>
          <Route exact path="/Paccount" element={<Paccount/>} />
         </Routes>
+        <Routes>
+         <Route exact path="/list-patient" element={<Liste/>} redirectTo="/Paccount" />
+        </Routes>
+       
         </BrowserRouter>
      
         </> 

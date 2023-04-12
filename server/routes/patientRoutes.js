@@ -34,7 +34,7 @@ const signup = async (req, res) => {
      password:hashedPassword,
      birthdayDay,
      region,
-     sex,
+     gender,
      phone,
     });
 
@@ -68,24 +68,18 @@ const signin = async (req, res) => {
     }
 
     // Create and sign JWT token
-    const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRATION_TIME });
+    const token  = jwt.sign({ id: patient._id }, process.env.JWT_SECRET, { expiresIn: JWT_EXPIRATION_TIME });
     // ------- NEW CODE HERE
     const patientSession = { email: patient.email } // creating user session to keep user loggedin also on refresh
     req.session.patient = patientSession // attach user session to session object from express-session
-    
-
-    
-
     // Return success message and token
     return res.status(200).json({ message : "logged in successfully" ,
-      token
+      token , patient: patient 
     })
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
   // Assuming you've verified the user's credentials and created a user object
-
- 
 
 };
 const isAuth =  async (req, res) => {
@@ -95,8 +89,43 @@ const isAuth =  async (req, res) => {
     return res.status(401).json('unauthorize')
   }
 }
+const get = async(req ,res)=>{
+  try {
+    await Patient.find({})
+    .then(result=>{
+      res.send(result)
+    })
+  }
+  catch (err) {
+    console.log(err)
+  }
+};
+const post =async (req,res)=>{
+  
+  try{
+  let new_patient = new Patient ({
+    familyName: req.body.familyName,
+    name: req.body.name,
+    email: req.body.email,
+    password:req.body.password,
+    birthdayDay: req.body.birthdayDay,
+    region: req.body.region,
+    gender: req.body.gender,
+    phone: req.body.phone
+  });
+  await new_patient.save()
+  res.send('save effectue avec succé')
+}
+catch(err){
+  console.log(err)
+}
+};
+
+
 module.exports = { 
   signup, 
   signin,
   isAuth,
+  get,
+  post,
 }
