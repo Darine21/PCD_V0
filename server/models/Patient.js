@@ -8,7 +8,7 @@ const PatientSchema = new Schema({
   password: { type: String, required: true },
   birthdayDay: { type: Date, required: true },
   region: { type: String, required: true },
-  gender: { type: String, enum: ['Woman', 'Man'], required: true },
+  sex: { type: String, required: true },
   phone: { type: Number, required: true },
 });
 

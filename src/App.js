@@ -1,4 +1,6 @@
-import React, {Component, Fragment,} from 'react';
+import React, { Component, Fragment, } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Contact from './Components/Connexion1/Contact';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
@@ -18,7 +20,7 @@ import Tarif from './Components/Money/Money';
 
 
 const App = () => {
-  const [token,setToken] = useState(null);
+ 
    
   
        
@@ -41,8 +43,7 @@ const App = () => {
         <Routes>
         <Route path="/doctor" element={< Formmedcien/>}/> 
         </Routes>
-            <Routes>
-              
+            <Routes>       
         <Route path="/patient" element={< Formupatient/>}/> 
         </Routes>
         <Routes>
@@ -70,7 +71,8 @@ const App = () => {
          <Route exact path="/list-patient" element={<Liste/>} redirectTo="/Paccount" />
         </Routes>
        
-        </BrowserRouter>
+          </BrowserRouter>
+           <ToastContainer />
      
         </> 
         

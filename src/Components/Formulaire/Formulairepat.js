@@ -1,36 +1,32 @@
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import './Formulairepat.css'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import axios from 'axios';
 function InscriptionPatient() {
     const [familyName, setNo] = useState('');
     const [name, setPrenomm] = useState('');
     const [password, setPassword] = useState('');
     const [email, setemail] = useState('');
-    const [selectedOption, setSelectedOption] = useState('');
+    
   const [phone, setnumero] = useState('');
   const [birthdayDay, setBithdayday] = useState(''); 
   const [region, setRegion] = useState(''); 
-  const [sex, setSex] = useState('');
+  const [sex, setUserGenderChange] = useState('');
 
-    const handleSelect1 = (event) => {
-    setSelectedOption(event.target.value);
-    setSex(event.target.value === 'Option 1' ? 'Woman' : 'Man');
+     const handleUserGenderChange = (e) => {
+    setUserGenderChange(e.target.value);
   }
 
-    const handleSelect = (event) => {
-      setSelectedOption(event.target.value);
-    }
-    const [selectedSpeciality, setSelectedSpeciality] = useState('');
-
-const handleSpecialityChange = (event) => {
-setSelectedSpeciality(event.target.value);
-  }; 
+   
   const handleSubmit = async (event) => {
     event.preventDefault();
-let response;
+
+
     try {
-      const response = await axios.post('http://localhost:5000/signup', {
+      const response = await axios.post('http://localhost:5000/patient/signup', {
     familyName,
   name,
   email,
@@ -41,8 +37,9 @@ let response;
   phone,
       });
         console.log(response);
-    if (response.data) {
-      console.log(response.data);
+      if (response.data) {
+        toast.success('Account created successfully!');
+      
       // Redirect to dashboard or login page
     }
   } catch (error) {
@@ -50,10 +47,7 @@ let response;
   }
   
 
-  const data =  response.data;
-  localStorage.setItem('name', data.name );
-  localStorage.setItem('gender', data.sex);
-  localStorage.setItem('phone', data.phone );
+ 
 }; 
     return(
         
@@ -131,28 +125,17 @@ Patient Registration
         </div>
         
 
-        <div className='radio-buttons'  >
-        <h5 className='cha'>
-            Sex :
-        </h5>
-            <input type="radio" value="Option 1" checked={selectedOption === 'Option 1'} onChange={handleSelect1} />
-              <label>Women</label>
+         <div>
+  <input type="radio" id="Woman" name="sex"  value="Woman"
+      
+      onClick={handleUserGenderChange}></input>
+  <label for="Woman">Women &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  </label>
 
-            <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect1}  />
-            <label>Man </label>
-
-          
-           <style>
-        {`
-          .radio-buttons input[type="radio"] {
-            margin-right: 20px;
-            margin-top: 20px;
-            margin-left: 10px;
-          }
-        `}
-      </style>
-         
-        </div>
+  <input type="radio" id="Man" name="sex"  value="Man"
+      
+      onClick={handleUserGenderChange}></input>
+  <label for="Man">Men</label>
+</div>
         <div className='cha'>
         <h6 className='ee'>
             Your phone
@@ -162,7 +145,7 @@ Patient Registration
       </label>
         </div>
         <Link to={"/contact"}>
-        <button className='ch' type='submit'>
+        <button className='ch' type='submit' onClick={handleSubmit}>
             Save and Register 
           </button>
           </Link>
