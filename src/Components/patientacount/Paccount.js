@@ -153,7 +153,7 @@ function Paccount() {
         { text: `Anatomical Site: ${anatomicalSite}` },
         { text: `phone: ${phone}`},
         { text: `Description: ${description}` },
-        { image: `${API_ENPOINT}/${item.receipt}`}
+        // { image: `${API_ENPOINT}/${item.receipt}`}
       ],
     
       styles: {

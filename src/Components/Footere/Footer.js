@@ -1,7 +1,10 @@
 import React from "react";
 import "./Footer.css";
 import { HashLink } from "react-router-hash-link";
-
+import {BsFillTelephoneFill} from "react-icons/bs"
+import {BsFillEnvelopeAtFill} from "react-icons/bs";
+import {BsGlobe} from "react-icons/bs"
+import {BsGeo} from "react-icons/bs"
 export default function Footer({ space }) {
   return (
     <>
@@ -59,16 +62,16 @@ export default function Footer({ space }) {
                 <div className="row">
                   <div className="col-sm-6 col-md-4 col-lg-4 mb-4 mb-sm-4 mb-md-0 mb-lg-0">
                     <div className="footer-nav-wrap text-white">
-                      <h5 className="mb-3 text-white" style={{color:"hsla(30, 59%, 45%, 0.902)"}}>Solutions</h5>
+                      <h5 className="mb-3 text-white" style={{color:"hsla(30, 59%, 45%, 0.902)"}}>Sections</h5>
                       <ul className="list-unstyled">
                         <li className="mb-2">
-                          <a className="footer-text" href="#/">
-                            Help
+                          <a className="footer-text" href="#/" id="home">
+                            Home
                           </a>
                         </li>
                         <li className="mb-2">
                           <a className="footer-text" href="#/">
-                            Events
+                            Info
                           </a>
                         </li>
                         <li className="mb-2">
@@ -92,12 +95,12 @@ export default function Footer({ space }) {
                   
                   <div className="col-sm-6 col-md-4 col-lg-4">
                     <div className="footer-nav-wrap ">
-                      <h5 className="mb-3 ">Location</h5>
+                      <h5 className="mb-3 ">Contact</h5>
                       <ul className="list-unstyled support-list">
                         <li className="mb-2 d-flex align-items-center">
                           <span className="footer-text">
                             <span className="ti-location-pin "></span>
-                            Street of Tunis 
+                           <BsGeo/> Street of Tunis 
                             <br />
                             Sfax, Tunisia 3041
                           </span>
@@ -105,7 +108,7 @@ export default function Footer({ space }) {
                         <li className="mb-2 d-flex align-items-center">
                           <span className="ti-mobile mr-2"></span>
                           <a className="footer-text" href="tel:+21670038285">
-                            +216 70 038 285
+                           <BsFillTelephoneFill/> +216 70 038 285
                           </a>
                         </li>
                         <li className="mb-2 d-flex align-items-center">
@@ -114,7 +117,7 @@ export default function Footer({ space }) {
                             className="footer-text"
                             href="mailto:info@justk8s.com"
                           >
-                            info@skincancer.com
+                           <BsFillEnvelopeAtFill/> info@skincancer.com
                           </a>
                         </li>
                         <li className="mb-2 d-flex align-items-center">
@@ -123,7 +126,7 @@ export default function Footer({ space }) {
                             className="footer-text"
                             href="http://www.justk8s.com/"
                           >
-                            www.skincancer.com
+                           <BsGlobe/> www.skincancer.com
                           </a>
                         </li>
                       </ul>
