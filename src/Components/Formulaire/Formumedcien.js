@@ -1,308 +1,211 @@
 import React, { useState } from 'react';
-import { Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+import axios from 'axios';
+
 import "./Formulaire.css";
 function InscriptionMedecin() {
-          const [nom, setNom] = useState('');
-          const [prenom, setPrenom] = useState('');
-          const [specialite, setSpecialite] = useState('');
-          const [nombre, setNombre] = useState(0);
-          const [Password, setPassword] = useState('');
-          const [email, setemail] = useState('');
+          const [familyName, setNom] = useState('');
+          const [name, setPrenom] = useState('');
+          const [Specialities, setSelectedSpeciality] = useState('null');
+          const [year_of_ex, setNbrYears] = useState('');
+          const [password, setPassword] = useState('');
+          const [email, setEmail] = useState('');
           const [poste, setposte] = useState('');
-          const [numero, setnumero] = useState('');
-          const handleSubmit = (event) => {
-            event.preventDefault();
-            // Code pour envoyer les données à un serveur ou les traiter localement
-          };
-          const [selectedOption, setSelectedOption] = useState('null');
-
-          const handleSelect = (event) => {
-            setSelectedOption(event.target.value);
-          }
-          const [selectedSpeciality, setSelectedSpeciality] = useState('null');
+          const [phone, setPhone] = useState('');
+          const [region, setSelectedRegion] = useState('null');
+          const [fax ,  setFax] = useState("")
+          const [Image_dim, setFile] = useState(null);
+          
 
   const handleSpecialityChange = (event) => {
     setSelectedSpeciality(event.target.value);
   };
+  const handleRegionChange = (event) => {
+    setSelectedRegion(event.target.value);
+  }; 
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]); 
+
+  }
   
-          return (
-           <div >
-             <div >
-             
-                <h2>
-                    Identification de la ressources
-                </h2>
-             </div>
+ const handleSubmit = async (event) => {
+   event.preventDefault();
+  const formData = new FormData();
+  formData.append('familyName', familyName);
+  formData.append('name', name);
+  formData.append('email', email);
+  formData.append('password', password);
+  formData.append('poste', poste);
+  formData.append('region', region);
+  formData.append('fax', fax);
+  formData.append('phone', phone);
+  formData.append('Image_dim', Image_dim);
+  formData.append('Specialities', Specialities);
+
+
+    try {
+      const response = await axios.post('http://localhost:5000/doctor/signup', {
+      familyName,
+      name,
+      email,
+      password,
+      poste,
+      region,
+      fax,
+      phone,
+      Specialities,
+       year_of_ex, 
+       Image_dim,
+      });
+        console.log(response);
+      if (response.data) {
+        toast.success('Account created successfully!');
+      
+      // Redirect to dashboard or login page
+    }
+  } catch (error) {
+    console.log(error.response.data);
+  }
+  
+
+ 
+}; 
+ 
+
+   
+  
+  return (<div>
+ 
+       
+            <div class="form-wrapper" >
+       
+              <h1> Doctor Registration </h1>
+              <form onSubmit={handleSubmit} encType='multipart/form-data'>
            
-             <div className='radio-buttons' >
-            <input type="radio" value="Option 1" checked={selectedOption === 'Option 1'} onChange={handleSelect} className="aa"/>
-              <label>Résident</label>
-
-            <input type="radio" value="Option 2" checked={selectedOption === 'Option 2'} onChange={handleSelect}  />
-            <label>Médecin de famille </label>
-
-          <input type="radio" value="Option 3" checked={selectedOption === 'Option 3'} onChange={handleSelect}  />
-           <label>Médecien spécialiste</label>
-           <style>
-        {`
-          .radio-buttons input[type="radio"] {
-            margin-right: 20px;
-          }
-        `}
-      </style>
-      <div>
-        <h4 className='hh'>
-        Authentication email:
-        </h4>
-        <label>
-        <input type="text" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Your email" />
-      </label>
-      
-      <label className='tit'>
-
-        <input type="number" value={Password} onChange={(e) => setPassword(e.target.value)} placeholder=" Password" />
-      </label>
+                <br></br>
+  <div class="form-item" >
         
-        
-        <h6 className='ee'>
-            Family name 
-        </h6>
-        <label>
-        <input type="text" value={nom} onChange={(e) => setNom(e.target.value)} placeholder="Your family name" />
-      </label>
+       <div class="form-item">
+      <label for="email"></label>
+      <input type="email" name="email" required="required" placeholder="Email Address"  value={email} onChange={(e) => setEmail(e.target.value)}></input>
+   
+                  </div>
       
-      <label className='tit'>
-        <h6 className='RR'>
-            Name
-        </h6>
-       
-        <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder=" Your name" />
-      </label>
-      <h6 className='ee'>
-            Your phone
-        </h6>
-        <label>
-        <input type="number" value={numero} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
-      </label>
-      <label className='tit'>
-        <h6 className='RR'>
-            Poste
-        </h6>
-       
-        <input type="number" value={poste} onChange={(e) => setposte(e.target.value)} placeholder=" Num poste" />
-      </label>
-      <label className='tit'>
-        <h6 className='RR'>
-            Fax
-        </h6>
-        <input type="text" value={prenom} onChange={(e) => setPrenom(e.target.value)} placeholder=" Your num for fax" />
-      </label>
-      <h6 className='ee'>
-            Year(s) of experience  
-        </h6>
-          <input type="number" id="nombre" name="nombre" value={nombre} onChange={(event) => setNombre(event.target.value)} />
-        <label className='tit'>
-        <h6 className='RR'>
-            Image for your dimploma
-        </h6>
-        <input type="file" id="mon-image" name="mon-image" accept="image/*" />
-        </label>
-        <h5 className='ee'>
-            Langage supported :
-        </h5>  
-  <input type="checkbox" id="francais" name="langues" value="Français"/>
-  <label for="francais">Français</label>
-<div>
-  <input type="checkbox" id="allemand" name="langues" value="Allemand"/>
-  <label for="allemand">Allemand</label>
-</div>
-<div> 
-  <input type="checkbox" id="italien" name="langues" value="Italien"/>
-  <label for="italien">Italien</label>
-</div>
-<div>
-  <input type="checkbox" id="portugais" name="langues" value="Portugais"/>
-  <label for="portugais">Portugais</label>
-</div>
-<div>
-  <input type="checkbox" id="mandarin" name="langues" value="Chinois (Mandarin)"/>
-  <label for="mandarin">Chinois (Mandarin)</label>
-</div>
-<div>
-  <input type="checkbox" id="cantonais" name="langues" value="Chinois (Cantonais)"/>
-  <label for="cantonais">Chinois (Cantonais)</label>
-</div>
-<div>
-  <input type="checkbox" id="japonais" name="langues" value="Japonais"/>
-  <label for="japonais">Japonais</label>
-</div>
-<div>
-  <input type="checkbox" id="coreen" name="langues" value="Coréen"/>
-  <label for="coreen">Coréen</label>
-</div>
-<div>
-  <input type="checkbox" id="arabe" name="langues" value="Arabe"/>
-  <label for="arabe">Arabe</label>
-</div>
-<div>
-  <input type="checkbox" id="russe" name="langues" value="Russe"/>
-  <label for="russe">Russe</label>
-</div>
-<div>
-  <input type="checkbox" id="hindi" name="langues" value="Hindi"/>
-  <label for="hindi">Hindi</label>
-</div>
-<div>
-  <input type="checkbox" id="ourdou" name="langues" value="Ourdou"/>
-  <label for="ourdou">Ourdou</label>
-</div>
-<div>
-  <input type="checkbox" id="bengali" name="langues" value="Bengali"/>
-  <label for="bengali">Bengali</label>
-</div>
-<div>
-  <input type="checkbox" id="swahili" name="langues" value="Swahili"/>
-  <label for="swahili">Swahili</label>
-</div>
-<div>
-  <input type="checkbox" id="autre" name="langues" value="Autre"/>
-  <label for="autre">Autre</label>
-</div>
-<h4 className='ee'>
-    Specialties :
-</h4>
-<div>
-<label>
-        <input type="radio" value="dermatologist" checked={selectedSpeciality === 'dermatologist'} onChange={handleSpecialityChange} />
-        Dermatology
-      </label>
-      
-      <label>
-        <input type="radio" value="oncologist" checked={selectedSpeciality === 'oncologist'} onChange={handleSpecialityChange} />
-        Oncology
-      </label>
-      
-      <label>
-        <input type="radio" value="suron" checked={selectedSpeciality === 'suron'} onChange={handleSpecialityChange} />
-        Surgical
-      </label>
-      
-      </div>
-      <div>
-      <label>
-        <input type="radio" value="surgeon" checked={selectedSpeciality === 'surgeon'} onChange={handleSpecialityChange} />
-        Plastic surgery
-      </label>
-      <label>
-        <input type="radio" value="Der" checked={selectedSpeciality === 'Der'} onChange={handleSpecialityChange} />
-        Dermatopathology
-      </label>
-      <label>
-        <input type="radio" value="m" checked={selectedSpeciality === 'm'} onChange={handleSpecialityChange} />
-      Mohs surgery
-      </label>
-      </div>
-      <div>
-        <label>
-      <input type="radio" value="mo" checked={selectedSpeciality === 'mo'} onChange={handleSpecialityChange} />
-      Radiation Oncology
-      </label>
-      <label>
-      <input type="radio" value="med" checked={selectedSpeciality === 'med'} onChange={handleSpecialityChange} />
-      Medical Oncology
-      </label>
-      <label>
-      <input type="radio" value="Her" checked={selectedSpeciality === 'Her'} onChange={handleSpecialityChange} />
-      Hematology-oncology
-      </label>
-      </div>
-      <h4>
-        Region where you partice your job :
-      </h4>
-      <div>
-      <input type="checkbox" id="tunis" name="langues" value="Français"/>
-  <label for="tunis">Tunis</label>
-
-  <input type="checkbox" id="Ariana" name="langues" value="Allemand"/>
-  <label for="Ariana">Ariana</label>
-  <input type="checkbox" id="Ben Arous" name="langues" value="Italien"/>
-  <label for="Ben Arous">Ben Arous</label>
-</div>
-<div>
-  <input type="checkbox" id="Mannouba" name="langues" value="Portugais"/>
-  <label for="Mannouba">Mannouba</label>
-  <input type="checkbox" id="Nabeul" name="langues" value="Chinois (Mandarin)"/>
-  <label for="Nabeul">Nabeul </label>
-
-  <input type="checkbox" id="zag" name="langues" value="Chinois (Cantonais)"/>
-  <label for="zag">Zaghouan</label>
-</div>
-<div>
-  <input type="checkbox" id="bi" name="langues" value="Japonais"/>
-  <label for="bi">Bizerte</label>
-
-  <input type="checkbox" id="b" name="langues" value="Coréen"/>
-  <label for="b">béja</label>
-
-  <input type="checkbox" id="Jan" name="langues" value="Arabe"/>
-  <label for="Jan">Jendouba</label>
-</div>
-<div>
-  <input type="checkbox" id="k" name="langues" value="Russe"/>
-  <label for="k">Kef</label>
-
-  <input type="checkbox" id="s" name="langues" value="Hindi"/>
-  <label for="s">Siliana</label>
-
-  <input type="checkbox" id="ka" name="langues" value="Ourdou"/>
-  <label for="ka">Kairouan</label>
-</div>
-<div>
-  <input type="checkbox" id="kas" name="langues" value="Bengali"/>
-  <label for="kas">Kasserine</label>
-
-  <input type="checkbox" id="sidi" name="langues" value="Swahili"/>
-  <label for="sidi">Sidi Bouzid</label>
-
-  <input type="checkbox" id="S" name="langues" value="Autre"/>
-  <label for="S">Sousse</label>
-  </div>
-  <div>
-  <input type="checkbox" id="MO" name="langues" value="Autre"/>
-  <label for="MO">Monastir</label>
-  <input type="checkbox" id="Ma" name="langues" value="Autre"/>
-  <label for="Ma">Mahdia</label>
-  <input type="checkbox" id="Sf" name="langues" value="Autre"/>
-  <label for="Sf">Sfax</label>
-  </div>
-  <div>
-  <input type="checkbox" id="G" name="langues" value="Autre"/>
-  <label for="G">Gafsa</label>
-  <input type="checkbox" id="T" name="langues" value="Autre"/>
-  <label for="T">Tozeur</label>
-  <input type="checkbox" id="K2" name="langues" value="Autre"/>
-  <label for="K2">Kébili</label>
-  </div>
-  <div>
-  <input type="checkbox" id="GA" name="langues" value="Autre"/>
-  <label for="GA">Gabés</label>
-  <input type="checkbox" id="Med" name="langues" value="Autre"/>
-  <label for="med">Mednine</label>
-  <input type="checkbox" id="Tat" name="langues" value="Autre"/>
-  <label for="Tat">Tataouine</label>
-
-</div>
-<button className='eee'>
-Save and Continue Later
-</button>
-<button className='eee'> Submit registration</button>
-      </div>
-
+     <div class="form-item">
+      <label for="password"></label>
+      <input type="password" name="password" required="required" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
     </div>
-    
+        
+        
+       <div class="form-item">
+        <label>
+        <input type="text" value={familyName} onChange={(e) => setNom(e.target.value)} placeholder="Your Family Name" />
+                    </label>
+                    </div>
       
-         </div>
+      <div class="form-item">
+       
+        <input type="text" value={name} onChange={(e) => setPrenom(e.target.value)} placeholder=" Your name" />
+      </div>
+      <div class="form-item">
+        <label>
+        <input type="number" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Phone Number" />
+                    </label>
+                  </div>
+                  
+      <div class="form-item">
+       
+        <input type="number" value={poste} onChange={(e) => setposte(e.target.value)} placeholder="Post Number" />
+                  </div>
+                  
+      <div class="form-item">
+        <input type="text" value={fax} onChange={(e) => setFax(e.target.value)} placeholder=" Fax Number" />
+      </div>
+     <div class="form-item">
+                    <input type="number" id="nombre" name="nombre" value={year_of_ex} onChange={(event) => setNbrYears(event.target.value)} placeholder='Years of experiences' />
+                  </div>
+                  <br></br>
+                  <div class="form-item">
+                    <h6> Upload Your Dioploma </h6>
+                    <input type="file" id="mon-image" name="mon-image" accept=".png, .jpg, .jpeg" onChange={handleFileChange} />
+                    </div>
+                  <div class="form-item"> 
+                    <h6> Your Speciality</h6>
+   <select id="speciality" value={Specialities} onChange={handleSpecialityChange}>
+							<option value="0" selected disabled>Specialty</option>
+      <option value="dermatologist">Dermatologist</option>
+      <option value="cosmetic dermatologist">Cosmetic Dermatologist</option>
+      <option value="dermatopathologist">Dermatopathologist</option>
+      <option value="pediatric dermatologist">Pediatric Dermatologist</option>
+      <option value="surgical dermatologist">Surgical Dermatologist</option>
+      <option value="Mohs surgeon">Mohs Surgeon</option>
+      <option value="immunodermatologist">Immunodermatologist</option>
+      <option value="dermatologic oncologist">Dermatologic Oncologist</option>
+      <option value="teledermatologist">Teledermatologist</option>
+      <option value="dermatologic surgeon">Dermatologic Surgeon</option>
+      <option value="dermatology nurse practitioner">Dermatology Nurse Practitioner</option>
+                  </select>
+                  </div>
+                  <br></br>
+
+<div class="form-item"> 
+                   <h6> Region Where You Practice Your Job :</h6>
+   
+                      
+                      <select name="region" id="region" onChange={handleRegionChange}>
+   <option value="0" selected disabled>Region</option>
+  <option value="Tunis">Tunis</option>
+  <option value="Ariana">Ariana</option>
+  <option value="Ben Arous">Ben Arous</option>
+  <option value="Manouba">Manouba</option>
+  <option value="Nabeul">Nabeul</option>
+  <option value="Zaghouan">Zaghouan</option>
+  <option value="Bizerte">Bizerte</option>
+  <option value="Beja">Beja</option>
+  <option value="Jendouba">Jendouba</option>
+  <option value="Kef">Kef</option>
+  <option value="Siliana">Siliana</option>
+  <option value="Kairouan">Kairouan</option>
+  <option value="Kasserine">Kasserine</option>
+  <option value="Sidi Bouzid">Sidi Bouzid</option>
+  <option value="Sousse">Sousse</option>
+  <option value="Monastir">Monastir</option>
+  <option value="Mahdia">Mahdia</option>
+  <option value="Sfax">Sfax</option>
+  <option value="Gafsa">Gafsa</option>
+  <option value="Tozeur">Tozeur</option>
+  <option value="Kebili">Kebili</option>
+  <option value="Gabes">Gabes</option>
+  <option value="Medenine">Medenine</option>
+  <option value="Tataouine">Tataouine</option>
+</select>
+
+      
+                 
+                  </div>
+                
+                  <div class="button-panel">
+      <input type="submit" class="button" title="Sign Up" value="Sign Up" onClick={handleSubmit}></input>
+                    </div>
+                   
+
+      
+
+
+                  </div>
+                  <br>
+                  </br>
+                  
+
+   
+    
+      </form>
+    </div>
+    </div>
             
           );
-        }
-     export default InscriptionMedecin;
+  }
+  
+export default InscriptionMedecin;

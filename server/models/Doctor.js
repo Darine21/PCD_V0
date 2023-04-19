@@ -10,10 +10,10 @@ const DoctorSchema = new Schema({
     region: { type: String, required: true },
     fax: { type: Number,  required: true },
     phone: { type: Number, required: true },
-    Langage: {type:String ,require:true},
-    Specialities:{ type:String , enum:["Dermatology","Oncology","Surgical","MedicalOncology","RadiationOncology","Plasticsurgery"] , require:true},
+    Langage: {type:String ,require:false},
+    Specialities:{ type:String , require:true},
     year_of_ex:{type:Number,require:true},
-    Image_dim: { type: String, required: true },
+    Image_dim: { type: Buffer, required: true },
   });
 
 const Doctor = model('Doctor', DoctorSchema);

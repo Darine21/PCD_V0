@@ -24,12 +24,19 @@ module.exports = function override(config, env) {
         loader: 'babel-loader',
         options: {
           presets: ['@babel/preset-env', '@babel/preset-react']
-        }
+        } ,
       },
       resolve: {
 		fullySpecified: false
 	}
-    }
+    }, {
+    test: /\.css$/,
+    use: [
+      'style-loader',
+      'css-loader',
+      'postcss-loader',
+    ],
+  },
   ]
     config.resolve.fallback = {
         url: require.resolve('url'),

@@ -3,7 +3,9 @@ const session = require('express-session')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Patient = require('../models/Patient.js');
-const JWT_EXPIRATION_TIME = process.env.JWT_EXPIRATION_TIME;
+if (process.env.NODE_ENV != "production") {
+  require("dotenv").config();
+};
 // user.js
 // import express-session in your code
 
@@ -34,17 +36,17 @@ const signup = async (req, res) => {
      password:hashedPassword,
      birthdayDay,
      region,
-     gender,
+     sex,
      phone,
     });
 
     await newPatient.save();
 
     // Create and sign JWT token
-    const token = jwt.sign({ id: newPatient._id }, process.env.JWT_SECRET);
+   
 
     // Return success message and token
-    res.status(201).json({ message: 'Patient created successfully.', token });
+    res.status(201).json({ message: 'Patient created successfully.'});
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -66,7 +68,7 @@ const signin = async (req, res) => {
     if (!passwordValid) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-
+    console.log(process.env.JWT_SECRET); 
     // Create and sign JWT token
     const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET );
     // ------- NEW CODE HERE

@@ -5,7 +5,7 @@ function signup (){
     return(
     
        
-        < div className="in" id="signup">
+        < div class="form-item" id="signup">
             <h1 className="tiltle1">
                 Sign up As 
             </h1> 
@@ -18,7 +18,8 @@ function signup (){
         </Link >
         <Link to={"/patient"}>
         <button className="pp">Patient</button>
-        </Link>
+            </Link>
+            
         </div>
        
     

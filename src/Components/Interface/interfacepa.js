@@ -1,4 +1,7 @@
-import React ,{useState,useRef} from "react";
+
+import { useState, useEffect } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {Navbar ,NavLink , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
 import LO from '../../Asset/ess.png';
 import A from '../../Asset/AGE.png';
@@ -15,7 +18,34 @@ import {BsFillPeopleFill} from "react-icons/bs";
 import {AiOutlineFolderOpen} from "react-icons/ai";
 import {BiHomeSmile} from "react-icons/bi";
 import {AiOutlineDollarCircle} from "react-icons/ai";
-function Interface (){
+function Interface() {
+  const navigate = useNavigate();
+     useEffect(() => {
+    const fetchDoctor = async () => {
+      let token = localStorage.getItem('Doctor token');
+     
+      if (token) {
+        fetch('http://localhost:5000/authDoctor-endpoint', {
+  method: 'GET', 
+  headers: {
+    'Authorization': `Bearer ${token}`
+  }
+})
+.then(response => response.json())
+.then(data => {
+ 
+  
+  console.log(data)
+  
+})
+.catch(error => console.error(error));
+      }
+      else {
+        navigate('/signin'); 
+      }
+    };
+    fetchDoctor();
+  }, []);
    
     
     return(

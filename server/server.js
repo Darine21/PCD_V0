@@ -5,11 +5,13 @@ const jwt = require('jsonwebtoken');
 const multer = require('multer');
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
-} 
-const auth = require('./auth')
-const Patient = require('./routes/patientRoutes') 
+};
+const auth = require('./auth'); 
+const Patient1 = require('./models/Patient.js'); 
+const Patient = require('./routes/patientRoutes'); 
 const Formulaire = require('./routes/formulaireRouter');
-const Doctor= require('./routes/doctorRouter')
+const Doctor = require('./routes/doctorRouter'); 
+const Doctor1 = require('./models/Doctor.js')
 const dbConnect = require("./db/dbConnect");
 
 
@@ -34,40 +36,7 @@ const mongoDBstore = new MongoDBStore({
 })
 
 
-const authentiDoctor = (req, res, next) => {
-  // Get the JWT token from the Authorization header
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) {
-    // Return a 401 Unauthorized response if the token is missing
-    return res.status(401).json({ message: 'Unauth' });
-  }
 
-  try {
-    // Verify the JWT token using the secret key
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const doctorId = decoded._id;
-
-    // Use the user's ID to retrieve the corresponding user record from the database
-    Doctor.findById(doctorId, (err, doctor) => {
-      if (err) {
-        // Return a 500 Internal Server Error response if there's an error
-        return res.status(500).json({ message: 'Internal Server Error' });
-      }
-
-      if (!doctor) {
-        // Return a 404 Not Found response if the user doesn't exist
-        return res.status(404).json({ message: 'Doctor not found' });
-      }
-
-      // Attach the user object to the request object for further processing
-      req.doctor = doctor;
-      next();
-    });
-  } catch (error) {
-    // Return a 401 Unauthorized response if the token is invalid or has expired
-    res.status(401).json({ message: 'Unauth' });
-  }
-};
 
 app.use(
   session({
@@ -117,39 +86,70 @@ app.post("/upload", upload ,(req,res)=>{
 
 app.post("/patient/signin", Patient.signin); 
 app.post("/patient/signup", Patient.signup);
-app.get('/isAuth', Patient.isAuth); 
+
 app.post("/doctor/signin", Doctor.login );
 app.post("/doctor/signup", Doctor.signup);
-app.get('/isAuthh', Doctor.isAuthh); 
+
 app.get("/patient", Patient.get );
 app.get("/patien/form",Formulaire.get);
 app.post("/formajouter",upload,Formulaire.post);
 app.post("/ajouterpatient",Patient.post);
 app.get('/sendMail', Doctor.sendMail);
 app.get('/resetPassword', Doctor.resetPassword);
-app.get('/auth-endpoint' , auth , async (req, res) => { 
+app.get('/auth-endpoint', async (req, res) => {
   try {
-    const patient = await Patient.findById(req.patient._id); 
-    res.json(patient); 
-  } 
-  catch(err) {  console.log(err) }
-}); 
+    const token = req.header('Authorization');
+    const cleanToken = token.replace('Bearer ', '');
 
+    if (!token) {
+      throw new Error('No token provided');
+    }
+     
 
+    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+    
+    const patient = await Patient1.findOne({ _id: decoded.id });
 
+    if (!patient) {
+      console.log('No patient found');
+    }
 
-app.get('/count', authentiDoctor, async (req, res) => {
-  try {
-    // Retrieve the doctor record using the ID extracted from the JWT token
-    const doctor = await Doctor.findById(req.doctor._id);
+    res.json(patient);
 
-    // Return the doctor's account information as a JSON response
-    res.json(doctor);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).send('Server Error');
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({ error: 'Authentication failed' });
   }
 });
+
+app.get('/authDoctor-endpoint', async (req, res) => {
+  try {
+    const token = req.header('Authorization');
+    const cleanToken = token.replace('Bearer ', '');
+
+    if (!token) {
+      throw new Error('No token provided');
+    }
+     
+
+    const decoded = jwt.verify(token.replace('Bearer ', ''), process.env.JWT_SECRET);
+    
+    const doctor = await Doctor1.findOne({ _id: decoded.id });
+
+    if (!doctor) {
+      console.log('No doctor found');
+    }
+
+    res.json();
+
+  } catch (error) {
+    console.log(error);
+    res.status(401).send({ error: 'Authentication failed' });
+  }
+});
+
+
+
 
 // Start server
 app.listen(process.env.PORT, () => {

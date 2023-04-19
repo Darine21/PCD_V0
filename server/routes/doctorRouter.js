@@ -40,7 +40,9 @@ const signup = async (req, res) => {
       Langage,
       Specialities,
        year_of_ex, 
-       Image_dim,
+        Image_dim: {
+        
+      }
 
     });
 
@@ -79,19 +81,13 @@ const login = async (req, res) => {
     req.session.dooctor = dooctorSession ;// attach user session to session object from express-session
 
     // Retourner les données de l'utilisateur en réponse
-    res.status(200).json( {message: 'doctor signed in successfully.', dooctorSession });
+    res.status(200).json( {message: 'doctor signed in successfully.', token , doctor:dooctor });
 
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
-const isAuthh =  async (req, res) => {
-    if (req.session.dooctor) {
-      return res.json(req.session.dooctor);
-    } else {
-      return res.status(401).send();
-    }
-  };
+
  
 
 
@@ -161,7 +157,6 @@ const resetPassword = async (req, res) => {
 module.exports = { 
     signup, 
     login,
-    isAuthh,
     sendMail,
     resetPassword
   }

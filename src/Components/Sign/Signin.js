@@ -7,7 +7,7 @@ import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import jwt_decode from 'jwt-decode';
 
 function Signin() {
-    const [userType, setUserType] = useState('patient');
+    const [userType, setUserType] = useState('null');
     const [email, setEmail] = useState(''); 
      const [password, setPassword] = useState(''); 
       const navigate = useNavigate();  
@@ -30,35 +30,49 @@ if (userType === "patient") {
 } else {
   isPatient = false;
 }
-
+ console.log(isPatient)
 
   // envoyer la requête de connexion appropriée en fonction du choix de l'utilisateur
   let response;
   if (isPatient) {
-    response = await fetch('http://localhost:5000/patient/signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
+    fetch('http://localhost:5000/patient/signin', {
+  method: 'POST',
+  body: JSON.stringify({  email, password 
     
-    const data =  response.data;
-     console.log(data.email)
-    const token = data.token; 
-    localStorage.setItem('token', token);
-    localStorage.setItem('patient', data.patient);
-    console.log(data.patient);
-    const patient = jwt_decode(token); 
-    console.log(typeof (patient));
-    console.log("logged in successfully");navigate('/Paccount'); 
-    
+  }),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => response.json())
+.then(data => {
+  const token = data.token;
+  localStorage.setItem('token', token);
+  
+   navigate('/Paccount')
+})
+      .catch(error => console.error(error));
+   
   } 
  else {
-    response = await fetch('/Doctor/Signin', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password }),
-    });
-    navigate('/interface');
+   fetch('http://localhost:5000/doctor/signin', {
+  method: 'POST',
+  body: JSON.stringify({  email, password 
+    
+  }),
+  headers: {
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => response.json())
+.then(data => {
+  const token = data.token;
+  localStorage.setItem('Doctor token', token);
+  
+   navigate('/Interface')
+})
+      .catch(error => console.error(error));
+   
   }
 
   // traiter la réponse
@@ -68,42 +82,37 @@ if (userType === "patient") {
 
 return( 
     
-       <Form id="signin" className="f">
-  <Card.Header className="bg-beige text-center">
-          <h3 className="text-orange mb-0">Sign in</h3>
-        </Card.Header>
+   <div class="form-wrapper1">
+  <h1>Sign In</h1>
+    <form>
+      <div>
+  <input type="radio" id="patient" name="gender"  value="patient"
+      
+      onChange={handleUserTypeChange}></input>
+  <label for="patient">Patient &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  </label>
 
-    <Form.Check
-      inline
-      label="Patient"
-      type="radio"
-      value="patient"
-      checked={userType === "patient"}
-      onChange={handleUserTypeChange}
-    />
-    <Form.Check
-      inline
-      label="Doctor"
-      type="radio"
-      value="doctor"
-      checked={userType === "doctor"}
-      onChange={handleUserTypeChange}
-    />
-  
-  <Form.Group controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-  </Form.Group>
-  <Form.Group controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
-  </Form.Group>
-  <Button variant="primary" type="submit" onClick={handleSignIn}>
-    connexion
-  </Button>
-              
-</Form>
-
+  <input type="radio" id="doctor" name="gender"  value="doctor"
+      
+      onChange={handleUserTypeChange}></input>
+  <label for="doctor">Doctor</label>
+</div>
+    <div class="form-item">
+      <label for="email"></label>
+      <input type="email" name="email" required="required" placeholder="Email Address"  value={email} onChange={(e) => setEmail(e.target.value)}></input>
+    </div>
+    <div class="form-item">
+      <label for="password"></label>
+      <input type="password" name="password" required="required" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
+    </div>
+    <div class="button-panel1">
+      <input type="submit" class="button" title="Sign In" value="Sign In" onClick={handleSignIn}></input>
+    </div>
+  </form>
+  <div class="form-footer">
+    <p><a href="#">Create an account</a></p>
+    <p><a href="#">Forgot password?</a></p>
+  </div>
+</div>
     
     );
 
