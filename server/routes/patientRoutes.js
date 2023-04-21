@@ -68,7 +68,7 @@ const signin = async (req, res) => {
     if (!passwordValid) {
       return res.status(400).json({ message: 'Invalid email or password.' });
     }
-    console.log(process.env.JWT_SECRET); 
+    
     // Create and sign JWT token
     const token = jwt.sign({ id: patient._id }, process.env.JWT_SECRET );
     // ------- NEW CODE HERE

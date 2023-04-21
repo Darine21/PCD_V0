@@ -10,9 +10,10 @@ import { event } from 'jquery';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 function Paccount() {
   const [PatientName , SetPatientName] = useState('')
-  const [doctoremail, setEmailDoctor] = useState('');
+  const [doctor, setEmailDoctor] = useState('');
   const [isPainful, setIsPainful] = useState('');
   const [duration, setDuration] = useState('');
+  const [FullName, setFullName] = useState(''); 
   const [file, setFile] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -21,16 +22,53 @@ function Paccount() {
   const [result, setResult] = useState('');
   const [phone, setphone] = useState([]);
   const navigate = useNavigate();
-  const[image,setimage]=useState([]);
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-   
-  }
+  const [image, setimage] = useState([]);
+   const [doctors, setDoctors] = useState([]);
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState('');
 
- 
-  const handlephoneChange = (event) => {
-    setphone(event.target.value);
+  const handleAlert = (message, type) => {
+    setMessage(message);
+    setType(type);
   };
+
+  const handleAlertClose = () => {
+    setMessage('');
+    setType('');
+  };
+  // submit when choosing the doctor 
+ const handleFormSubmit = async (event) => {
+  event.preventDefault(); // prevent default form submission behavior
+
+   const formData = new FormData();
+  // create new FormData object
+   formData.append('FullName', FullName); 
+  formData.append('doctor', doctor); // add doctor email to form data
+  formData.append('phone', phone); // add phone number to form data
+  formData.append('pdf', file); // add file to form data
+
+  try {
+    const response = await fetch('http://localhost:5000/patient/choose-doctor', {
+      method: 'POST',
+      body: formData, // pass the form data as the request body
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit form'); // throw an error if the request fails
+    }
+
+    const data = await response.json(); // parse the response body as JSON
+    console.log(data); // log the response data
+    setphone(''); 
+    setEmailDoctor(''); 
+    setFile(null); 
+    setFullName(''); 
+  } catch (error) {
+    console.error(error); // log any errors that occur
+  }
+};
+
+
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -39,10 +77,6 @@ function Paccount() {
     setAge(event.target.value);
   };
   
-
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
-  };
   const handleDoctorChange = (event) => {
     setEmailDoctor(event.target.value)
   }
@@ -51,8 +85,10 @@ function Paccount() {
     setFile(event.target.files[0]);
  };
   const handleSend = (event) => {
+
     
   }
+  // verifier l'authetification
    
   useEffect(() => {
     const fetchPatient = async () => {
@@ -84,7 +120,25 @@ function Paccount() {
     fetchPatient();
   }, []);
    
-   
+  // load all the doctors email in the data base
+ 
+  
+useEffect(() => {
+    async function fetchDoctors() {
+      const response = await fetch("http://localhost:5000/doctoremails"); // replace with your server endpoint
+      const data = await response.json();
+      console.log(data); 
+      console.log(data.emails)
+      setDoctors(data.emails);
+      console.log(doctors); 
+    }
+    fetchDoctors();
+}, []);
+   useEffect(() => {
+  console.log("doctors: ", doctors);
+  }, [doctors]);
+ 
+
   
   const handleLogoutClick = () => {
       localStorage.removeItem('token');
@@ -135,19 +189,10 @@ function Paccount() {
   };
 
 
-    // Mettre à jour l'état du composant parent avec les informations saisies par l'utilisateur
-    // const patientData = {
-    //   doctor,
-    //   age,
-    //   gender,
-    //   anatomicalSite,
-    //   date,
-    //   time,
-    //   phone};
  
   return (
     <Container className="py-4">
-      <div> welcome { PatientName}</div>
+      <div> welcome {PatientName}</div>
      <div></div>
       <Row>
         <Col md={6}>
@@ -157,25 +202,34 @@ function Paccount() {
             </Card.Header>
             <Card.Body>
               <Form onSubmit={handleFormSubmit}>
+               
                 <Form.Group>
-                  <Form.Label>Doctor</Form.Label>
-                  <Form.Select value={doctoremail} onChange={handleDoctorChange}>
-                    <option>Select a Doctor</option>
-                    <option value={doctoremail}>Doctor Email</option>
-                    
-                  </Form.Select>
-                </Form.Group>
+                <Form.Label>Full Name </Form.Label>
+  <Form.Control type="String" value={FullName} onChange={(e) => setFullName(e.target.value)} />
+</Form.Group>
               <Form.Group>
   <Form.Label>Your phone</Form.Label>
   <Form.Control type="tel" value={phone} onChange={(e) => setphone(e.target.value)} />
 </Form.Group>
+  <Form.Group>
+      <Form.Label>Doctor</Form.Label>
+      <Form.Select value={doctor} onChange={handleDoctorChange}>
+        <option>Select a Doctor</option>
+        {doctors.map((docto) => (
+          <option key={docto} value={docto} onChange={handleDoctorChange} >
+            {docto}
+          </option>
+          
+        ))}
+      </Form.Select>
+    </Form.Group>
 
                 <Form.Group>     
                 <Form.Label>Upload your PDF </Form.Label>
                  <Form.Control type="file" onChange={handleFileChange} />
                  </Form.Group>
           <br></br>
-                <Button type="submit" variant="primary" onClick={handleSend}  > Send  </Button>
+                <Button type="submit" variant="primary" onClick={() => handleAlert('', 'success')} > Send  </Button>
              
                
 
@@ -186,7 +240,16 @@ function Paccount() {
             </Card.Body>
           </Card>
         </Col>
-        
+
+      <div>
+      {message && (
+        <div className={`alert alert-${type} alert-dismissible`} role="alert" style={{ maxWidth: '640px' }} >
+          <div>{message}</div>
+          <button type="button" className="btn-close" onClick={handleAlertClose}></button>
+        </div>
+      )}
+      
+    </div>
          
         
   

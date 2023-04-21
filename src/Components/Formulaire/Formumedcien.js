@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
 import "./Formulaire.css";
+import { useNavigate } from 'react-router-dom';
 function InscriptionMedecin() {
           const [familyName, setNom] = useState('');
           const [name, setPrenom] = useState('');
@@ -16,8 +17,8 @@ function InscriptionMedecin() {
           const [phone, setPhone] = useState('');
           const [region, setSelectedRegion] = useState('null');
           const [fax ,  setFax] = useState("")
-          const [Image_dim, setFile] = useState(null);
-          
+          const [Image_dim, setImage] = useState("");
+  const navigate = useNavigate(); 
 
   const handleSpecialityChange = (event) => {
     setSelectedSpeciality(event.target.value);
@@ -26,8 +27,17 @@ function InscriptionMedecin() {
     setSelectedRegion(event.target.value);
   }; 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]); 
+    const file = event.target.files[0];  
+    setFileToBase(file); 
+    console.log(file); 
+  }
+  const setFileToBase = (file) => { 
+    const reader = new FileReader(); 
+    reader.readAsDataURL(file);
+    reader.onloadend = () => { 
+      setImage(reader.result); 
 
+    }
   }
   
  const handleSubmit = async (event) => {
@@ -62,6 +72,9 @@ function InscriptionMedecin() {
         console.log(response);
       if (response.data) {
         toast.success('Account created successfully!');
+        setTimeout(() => {
+  navigate('/signin');
+}, 2000);
       
       // Redirect to dashboard or login page
     }

@@ -17,7 +17,7 @@ import Liste from './Components/Liste/Liste.js';
 import Msg from './Components/Mesangerie/Msg';
 import Visit from './Components/Dossier/Dossier';
 import Tarif from './Components/Money/Money';
-
+import Modeleia from './Components/test partie ia/modeleia';
 
 const App = () => {
  
@@ -70,7 +70,9 @@ const App = () => {
         <Routes>
          <Route exact path="/list-patient" element={<Liste/>} redirectTo="/Paccount" />
         </Routes>
-       
+       <Routes>
+         <Route exact path="/modele-ia" element={<Modeleia/>} />
+        </Routes>
           </BrowserRouter>
            <ToastContainer />
      

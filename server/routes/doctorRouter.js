@@ -1,8 +1,6 @@
 const express = require('express');
-const session = require('express-session')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-
 const Doctor = require('../models/Doctor.js');
 const ResetPassword = require('../models/ressetPassword');
 
@@ -15,7 +13,9 @@ const ResetPassword = require('../models/ressetPassword');
 // Doctor sign up
 const signup = async (req, res) => {
   const { familyName , name, email, password,poste,region, fax, phone,Langage,Specialities, year_of_ex, Image_dim } = req.body;
-  
+  const image = req.body.Image_dim
+  console.log(image)
+ 
   try {
     // Check if patient email already exists
     const existDoctor = await Doctor.findOne({ email });
@@ -40,16 +40,14 @@ const signup = async (req, res) => {
       Langage,
       Specialities,
        year_of_ex, 
-        Image_dim: {
-        
-      }
+        Image_dim 
 
     });
 
     await newDoctorr.save();
 
     // Create and sign JWT token
-    const token = jwt.sign({ id: newDoctorr._id }, process.env.JWT_SECRET);
+    
 
     // Return success message and token
     res.status(201).json({ message: 'Doctor created successfully.', token });
@@ -88,6 +86,16 @@ const login = async (req, res) => {
   }
 };
 
+const doctoremails =  async (req, res) => {
+  try {
+    const doctors = await Doctor.find().select("email"); // fetch all doctors and select only the email field
+    const emails = doctors.map(doctor => doctor.email); // extract emails from the doctors array
+    res.send({ emails });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+}
  
 
 
@@ -153,12 +161,29 @@ const resetPassword = async (req, res) => {
     return res.status(500).json({ error: 'Server error' });
   }
 };
+const Upload = (req, res) => {
+  // Retrieve file data from request object
+  const file = req.file;
+
+  // Save file data to MongoDB database using Mongoose
+  const Diploma = mongoose.model('Diploma', { name: String, data: Buffer });
+  const diploma = new Diploma({ name: file.originalname, data: fs.readFileSync(file.path) });
+  diploma.save((err, diploma) => {
+    if (err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    return res.status(200).send('File uploaded successfully');
+  });
+}
+
 
 module.exports = { 
     signup, 
     login,
     sendMail,
-    resetPassword
+  resetPassword, 
+    doctoremails
   }
 
 

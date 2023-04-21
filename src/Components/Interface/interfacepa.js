@@ -1,15 +1,8 @@
-
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Navbar ,NavLink , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
 import LO from '../../Asset/ess.png';
-import A from '../../Asset/AGE.png';
-import AC from '../../Asset/AC.png';
-import PA from '../../Asset/PAA.png';
-import M from '../../Asset/msg.png';
-import C from '../../Asset/COM.png';
-import D from '../../Asset/DO.png';
 import { Link } from "react-router-dom";
 import { BiCalendar } from "react-icons/bi";
 import {BsWechat} from "react-icons/bs";
@@ -19,34 +12,38 @@ import {AiOutlineFolderOpen} from "react-icons/ai";
 import {BiHomeSmile} from "react-icons/bi";
 import {AiOutlineDollarCircle} from "react-icons/ai";
 function Interface() {
+  const [DoctorName , SetDoctorName] = useState('')
+  const [DoctorFamilyName, SetDoctorFamilyName] = useState('');
   const navigate = useNavigate();
-     useEffect(() => {
-    const fetchDoctor = async () => {
-      let token = localStorage.getItem('Doctor token');
-     
-      if (token) {
-        fetch('http://localhost:5000/authDoctor-endpoint', {
-  method: 'GET', 
-  headers: {
-    'Authorization': `Bearer ${token}`
-  }
-})
-.then(response => response.json())
-.then(data => {
- 
-  
-  console.log(data)
-  
-})
-.catch(error => console.error(error));
-      }
-      else {
-        navigate('/signin'); 
-      }
-    };
-    fetchDoctor();
-  }, []);
-   
+    useEffect(() => {
+  const fetchDoctor = async () => {
+    let token = localStorage.getItem('Doctor token');
+
+    if (token) {
+      fetch('http://localhost:5000/authDoctor-endpoint', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          console.log('Response status:', response.status);
+          console.log('Response headers:', response.headers);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Data:', data);
+          SetDoctorName(data.name);
+          SetDoctorFamilyName(data.familyName);
+        })
+        .catch(error => console.error(error));
+    } else {
+      navigate('/signin');
+    }
+  };
+  fetchDoctor();
+}, []);
+
     
     return(
         
@@ -56,7 +53,7 @@ function Interface() {
   <Container>
   <Navbar.Brand   style={{fontSize:40,color:'hsla(30, 59%, 45%, 0.902)'} } href="#home"    >
     <img src={LO} />
-     Doctor.Name</Navbar.Brand>
+              {DoctorName} { DoctorFamilyName} </Navbar.Brand>
 
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav" style={{height: '300%' }}>
