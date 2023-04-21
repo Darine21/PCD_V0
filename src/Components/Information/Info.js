@@ -7,7 +7,7 @@ export default function Info() {
   return (
     <>
       <section id="info"
-        className="info">
+        className="info" style={{marginTop:"-45px"}}>
         <div className="container">
             <div className="col-md-6 col-lg-5">
 

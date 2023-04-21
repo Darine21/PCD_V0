@@ -6,11 +6,11 @@ const welcome =()=>{
       
         <header >
            
-            <section  >
-            <div className="CC">
+            <section style={{marginTop:"-40px"}} id="home" >
+            <div className="CC" >
               <div className="center" style={{marginTop:"-10px", }} >
                 <h1 className="title" > WELCOME </h1>
-                <h2 className="sub-title"  style={{ fontSize:"25px"}} >
+                <h2 className="sub-title"  style={{ fontSize:"23px"}} >
                  Welcome to our skin cancer check-up website! Our goal is to provide you with the information and resources you need to stay informed and proactive about your skin health. 
                  Whether you're looking for advice on self-examination, or want to schedule an appointment with a dermatologist, we're here to help.
                  Thank you for visiting and taking the first step towards healthier, happier skin.    

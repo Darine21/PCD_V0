@@ -42,7 +42,7 @@ const Testimonial = () => {
 
     return (
 
-<div id="medecin">
+<div id="medecin"  style={{marginTop:"-60px"}}>
         <Slider {...settings} >
 
 
@@ -54,10 +54,7 @@ const Testimonial = () => {
 
                     <div>
                         <h6 className="mb-0 mt-3">Dr Salim Kassar</h6>
-                        <p className="section__description">Le Dr. Slim KASSAR est largement considéré comme le pionnier de la technologie moderne de greffe de cheveux, introduisant la technique FUE au public.
-                            Il est reconnu internationalement pour son travail et a encadré les meilleurs médecins de greffes de cheveux du monde entier.
-                            Le Dr. Slim KASSAR a étudié la médecine et la chirurgie en France. 
-                            <button>contact</button> 
+                        <p className="section__description">Le Dr. Slim KASSAR is widely regarded as the pioneer of modern hair transplant technology, introducing the FUE technique to the public. He is internationally recognized for his work and has trained the top hair transplant doctors from around the world. Dr. Slim KASSAR studied medicine and surgery in France.
                             </p>
                     </div>
                 </div>
@@ -69,13 +66,9 @@ const Testimonial = () => {
 
                     <div>
                         <h6 className="mb-0 mt-3"> Dr Sofian Ayedi </h6>
-                        <p className="section__description">Le Docteur Sofien AYADI est:
-                            Spécialiste en chirurgie digestive depuis 200000000007
-                            Professeur agrégé en chirurgie viscérale en 2013
-                            Ancien interne en chirurgie bariatrique à Bruxelles en 2008 (ULB université)
-                            Multiples stages de cours intensifs en chirurgie bariatrique a l’IRCAD (Strasbourg)
-                            Ancien interne à l’institut Gustave Roussy, Villejuif Paris (chirurgie Carcinologique digestive)Numéro d’inscription à l’ordre des médecins : 14537
-                            <button>contact</button>
+                        <p className="section__description">Dr. Sofien AYADI is a specialist in digestive surgery since 200000000007
+Also he is an associate professor in visceral surgery since 2013,a former intern in bariatric surgery in Brussels in 2008 (ULB university).Completed multiple intensive courses in bariatric surgery at IRCAD (Strasbourg)
+A former intern at Gustave Roussy Institute, Villejuif Paris (digestive oncologic surgery), he is registered with the Medical Association under the number 14537.
                             </p>
                     </div>
                 </div>
@@ -89,9 +82,7 @@ const Testimonial = () => {
 
                     <div>
                         <h6 className="mb-0 mt-3">Dr Mazen Kallel </h6>
-                        <p className="section__description">Docteur Mazen Kallel est un spécialiste en gynécologie obstétrique et traitement de l’infertilité bien connu pour son dévouement et professionnalisme.
-                            Avec plus de 13 ans d’expérience, il  possède une approche holistique du traitement de l’infertilité aussi bien féminine que masculine englobant les solutions thérapeutiques, cliniques et biologiques.
-                            <button>contact</button>
+                        <p className="section__description">Dr. Mazen Kallel is a well-known specialist in gynecology, obstetrics, and infertility treatment, renowned for his dedication and professionalism. With over 13 years of experience, he has a holistic approach to treating both female and male infertility, encompassing therapeutic, clinical, and biological solutions.
                             </p>
                     </div>
                 </div>
@@ -103,10 +94,9 @@ const Testimonial = () => {
 
                     <div>
                         <h6 className="mb-0 mt-3">AMINI-ADLE Mona</h6>
-                        <p className="section__description">Spécialités
-                            Cancers cutanés ,Chirurgie dermatologique ,Neurofibromatose de type 1 ,Dermatoscopi  .
-                            Tél: 78 78 59 96
-                            <button>contact</button>
+                        <p className="section__description">Specialties: Skin cancers, Dermatological surgery, Neurofibromatosis type 1, Dermatoscopy.
+                         Phone number: +216 78 78 59 96.
+                           
                             </p>
                     </div>
                 </div>
