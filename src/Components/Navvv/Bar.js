@@ -3,9 +3,9 @@ import './Bar.css';
 
 export default function Info() {
   return (
-    <div>
-        <h1 className="col1" style={{fontSize:70, marginTop:40}}>
-            Rencontrez nos médecins 
+    <div style={{marginTop:"-80px"}}>
+        <h1 className="col1" style={{fontSize:70, marginTop:40 , textAlign:"center"}}>
+       Meet our doctors
         </h1>
     </div>
   );

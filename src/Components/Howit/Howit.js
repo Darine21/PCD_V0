@@ -28,7 +28,7 @@ export default function AccordionWithImg() {
     <>
       <section
         className="download-section "  id="work"
-        
+        style={{marginLeft:"-90px"}}
       >
         <div className="container">
           <div className="row align-items-center justify-content-between">
@@ -36,6 +36,7 @@ export default function AccordionWithImg() {
               <div
                 id="accordion-1"
                 className="accordion accordion-faq pb-100"
+               
               >
                <div className="card">
                   <div

@@ -10,7 +10,7 @@ import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
 import Formupatient from './Components/Formulaire/Formulairepat' 
 import Formmedcien from './Components/Formulaire/Formumedcien'
-import Paccount from './Components/patientacount/Paccount.js';
+import Paccount from './Components/patientacount/Interfacepatient';
 import Interface from './Components/Interface/interfacepa';
 import Agenda from './Components/Agenda/Agenda';
 import Liste from './Components/Liste/Liste.js';

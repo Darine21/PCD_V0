@@ -9,9 +9,9 @@ function InscriptionPatient() {
     const [familyName, setNo] = useState('');
     const [name, setPrenomm] = useState('');
     const [password, setPassword] = useState('');
-    const [email, setemail] = useState('');
+    const [email, setEmail] = useState('');
     
-  const [phone, setnumero] = useState('');
+  const [phone, setphone] = useState('');
   const [birthdayDay, setBithdayday] = useState(''); 
   const [region, setRegion] = useState(''); 
   const [sex, setUserGenderChange] = useState('');
@@ -19,10 +19,22 @@ function InscriptionPatient() {
      const handleUserGenderChange = (e) => {
     setUserGenderChange(e.target.value);
   }
+  const handleRegionChange = (event) => {
+    setRegion(event.target.value);
+  };
 
    
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+    formData.append('familyName', familyName);
+    formData.append('name', name);
+    formData.append('email', email);
+    formData.append('password', password);
+    formData.append('birthdayDay',birthdayDay );
+    formData.append('region', region);
+    formData.append('sex', sex);
+    formData.append('phone', phone);
 
 
     try {
@@ -52,81 +64,73 @@ function InscriptionPatient() {
 }; 
     return(
         
-        <form onSubmit={handleSubmit} >
-<h1 className='in'> 
+        <div class="form-wrapper" >
+<h1 > 
 Patient Registration
 </h1>
-        <div className='chan'>
-               <h6 className='ee'>
-            Family name 
-        </h6>
+<form onSubmit={handleSubmit} encType='multipart/form-data'>
+        <br></br>
+        <div class="form-item">
         <label>
-        <input type="text" value={familyName} onChange={(e) => setNo(e.target.value)} placeholder="Your family name" />
-      </label>
-      
-      <label className='tit'>
-        <h6 className='RR'>
-            Name
-        </h6>
+        <input type="text" value={familyName} onChange={(e) => setNo(e.target.value)} placeholder="Your Family Name" />
+                    </label>
+                    </div>
        
-        <input type="text" value={name} onChange={(e) => setPrenomm(e.target.value)} placeholder=" Your name" />
-      </label>
-        </div>
-        <div className='chan'>
-        <h4 className='ee'>
-         Email:
-        </h4>
-        <label>
-        <input type="text" value={email} onChange={(e) => setemail(e.target.value)} placeholder="Your email" />
-      </label>
-      
-      <label className='tit'>
+        <div class="form-item">
+       
+       <input type="text" value={name} onChange={(e) => setPrenomm(e.target.value)} placeholder=" Your name" />
+     </div>
+     <div class="form-item">
+      <label for="email"></label>
+      <input type="email" name="email" required="required" placeholder="Email Address"  value={email} onChange={(e) => setEmail(e.target.value)}></input>
+   
+                  </div>
 
-        <input type="string" value={password} onChange={(e) => setPassword(e.target.value)} placeholder=" Password" />
-      </label>
-        </div>
-        <div className='chan'>
-        <label for="birthday" className='e' style={{fontFamily:""}}>Birthday day :</label>
+
+                  <div class="form-item">
+      <label for="password"></label>
+      <input type="password" name="password" required="required" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} ></input>
+    </div>
+
+        <div className='form-item'>
+        <label for="birthday"></label>
         <div>
-            <input type="date" id="birthday" value={ birthdayDay} name="birthday" onChange={(e) => setBithdayday(e.target.value)}/>
+            <input type="date" value={ birthdayDay} name="birthday" placeholder="Birthday day" onChange={(e) => setBithdayday(e.target.value)}/>
         </div>
         </div>
-        <div className='chan'> 
-            <h6 className='cha'>
-                Your Region :
-            </h6>
-            <select id="region" onChange={(e) => setRegion(e.target.value)} value={region}>
-  <option value={"c"}> select your region </option>              
-  <option value="ariana">Ariana</option>
-  <option value="beja">Béja</option>
-  <option value="benarous">Ben Arous</option>
-  <option value="bizerte">Bizerte</option>
-  <option value="gabes">Gabès</option>
-  <option value="gafsa">Gafsa</option>
-  <option value="jendouba">Jendouba</option>
-  <option value="kairouan">Kairouan</option>
-  <option value="kasserine">Kasserine</option>
-  <option value="kebili">Kébili</option>
-  <option value="kef">Le Kef</option>
-  <option value="mahdia">Mahdia</option>
-  <option value="manouba">La Manouba</option>
-  <option value="medenine">Médenine</option>
-  <option value="monastir">Monastir</option>
-  <option value="nabeul">Nabeul</option>
-  <option value="sfax">Sfax</option>
-  <option value="sidi_bouzid">Sidi Bouzid</option>
-  <option value="siliana">Siliana</option>
-  <option value="sousse">Sousse</option>
-  <option value="tataouine">Tataouine</option>
-  <option value="tozeur">Tozeur</option>
-  <option value="tunis">Tunis</option>
-  <option value="zaghouan">Zaghouan</option>
-</select>
-
-        </div>
-        
-
-         <div>
+        <div class="form-item"> 
+                   <h6> Your Region  :</h6>
+   
+                      
+                      <select name="region" id="region" onChange={handleRegionChange}>
+   <option value="0" selected disabled>Region</option>
+  <option value="Tunis">Tunis</option>
+  <option value="Ariana">Ariana</option>
+  <option value="Ben Arous">Ben Arous</option>
+  <option value="Manouba">Manouba</option>
+  <option value="Nabeul">Nabeul</option>
+  <option value="Zaghouan">Zaghouan</option>
+  <option value="Bizerte">Bizerte</option>
+  <option value="Beja">Beja</option>
+  <option value="Jendouba">Jendouba</option>
+  <option value="Kef">Kef</option>
+  <option value="Siliana">Siliana</option>
+  <option value="Kairouan">Kairouan</option>
+  <option value="Kasserine">Kasserine</option>
+  <option value="Sidi Bouzid">Sidi Bouzid</option>
+  <option value="Sousse">Sousse</option>
+  <option value="Monastir">Monastir</option>
+  <option value="Mahdia">Mahdia</option>
+  <option value="Sfax">Sfax</option>
+  <option value="Gafsa">Gafsa</option>
+  <option value="Tozeur">Tozeur</option>
+  <option value="Kebili">Kebili</option>
+  <option value="Gabes">Gabes</option>
+  <option value="Medenine">Medenine</option>
+  <option value="Tataouine">Tataouine</option>
+</select>    
+</div>
+<div class="form-item">
   <input type="radio" id="Woman" name="sex"  value="Woman"
       
       onClick={handleUserGenderChange}></input>
@@ -137,20 +141,27 @@ Patient Registration
       onClick={handleUserGenderChange}></input>
   <label for="Man">Men</label>
 </div>
-        <div className='cha'>
-        <h6 className='ee'>
-            Your phone
-        </h6>
+<div class="form-item">
         <label>
-        <input type="number" value={phone} onChange={(e) => setnumero(e.target.value)} placeholder="+216 ########" />
-      </label>
-        </div>
+        <input type="number" value={phone} onChange={(e) => setphone(e.target.value)} placeholder="Phone Number" />
+                    </label>
+                  </div>
         <Link to={"/contact"}>
-        <button className='ch' type='submit' onClick={handleSubmit}>
-            Save and Register 
-          </button>
+        <div class="button-panel" style={{marginTop:"-10px"}}>
+      <input type="submit" class="button" title="Sign Up" value="  Sign-Up " onClick={handleSubmit} ></input>
+                    </div>
           </Link>
+
+          <br>
+                  </br>
         </form>
+
+
+</div>
+
+
+
+
     )
 
 }
