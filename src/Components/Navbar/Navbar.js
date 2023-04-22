@@ -16,10 +16,10 @@ function ColorSchemesExample() {
   return (
     <>
 
-      <Navbar expend="lg">
-        <Container >
-        <Navbar.Brand   style={{fontSize:37,color:'hsla(30, 59%, 45%, 0.902)' , marginLeft:"-90px", marginTop:"-10px"} } href="#home"    >
-          <img src={LOG} />
+      <Navbar >
+        <Container className="ml-auto" style={{ fontSize: "14px", padding: "0.25rem 0.5rem", lineHeight: "20px" }} >
+        <Navbar.Brand   style={{fontSize:30,color:'hsla(30, 59%, 45%, 0.902)' , marginTop:"0px" ,  marginLeft:"-90px"} } href="#home"    >
+          <img src={LOG}  />
           Cancer-check-up </Navbar.Brand>
   
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -34,7 +34,7 @@ function ColorSchemesExample() {
                Link to Hash Fragment
             </HashLink> */}
         
-            <Link to="/contact" className="buttons" style={{marginRight:"-15px"}}  >
+            <Link to="/contact" className="buttons"  style={{ marginRight: "20px",  marginLeft: "20px" }}  >
             
               <button > CONNEXION   </button>
              

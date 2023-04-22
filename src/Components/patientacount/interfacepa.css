@@ -113,11 +113,26 @@ padding-left: calc(var(--bs-gutter-x) * .5);
   background-color: #d6d3d3;
 }
 .AA{
-  background-image: url('../../Asset/interpa.jpg');
+  background-image: url('../../Asset/pexels-cottonbro-studio-5701545.jpg');
   background-size: cover;
-  background-position: center left;
+  background-position: center ;
   background-repeat: no-repeat;
   width: 100%;
   height: 700px;
  margin-top: -70px;
+}
+#maladie{
+  
+    display: flex;
+      justify-content: center;
+      align-items: center;
+}
+#choose{
+  display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+#patient-name {
+  text-transform: uppercase;
 }
