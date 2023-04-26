@@ -11,14 +11,14 @@ function signup (){
          <div>
            <Link to={"/doctor"} >
         <button style={{
-            marginRight:"50px" 
+            marginRight:"50px" , fontStyle: "italic" , color:"black"
           }} >
          Doctor
         </button>
                     </Link >
                     
         <Link to={"/patient"}>
-        <button >Patient</button>
+        <button  style={{fontStyle: "italic" , color:"black"}}>Patient</button>
             </Link>
            </div> 
             </div>

@@ -16,13 +16,13 @@ function App() {
       <div>
       <Link to={"/Signin"}>
           <button style={{
-            marginRight:"50px" 
-          }}>Sign in </button>
+            marginRight:"50px" , fontStyle: "italic" , color:"black"
+          }}  className="button1">Sign in </button>
       </Link>
       </div>
       <div>
       <Link to={"/Signup"}>
-      <button className="button1" onClick={handleClick}>Sign up </button>
+      <button className="button1" onClick={handleClick} style={{ fontStyle: "italic" , color:"black"}}>Sign up </button>
         </Link>
         </div>
      </div>

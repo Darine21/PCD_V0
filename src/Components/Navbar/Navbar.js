@@ -18,7 +18,7 @@ function ColorSchemesExample() {
 
       <Navbar >
         <Container className="ml-auto" style={{ fontSize: "14px", padding: "0.25rem 0.5rem", lineHeight: "20px" }} >
-        <Navbar.Brand   style={{fontSize:30,color:'hsla(30, 59%, 45%, 0.902)' , marginTop:"0px" ,  marginLeft:"-90px"} } href="#home"    >
+        <Navbar.Brand   style={{fontSize:30,color:'#f18f81' , marginTop:"0px" ,  marginLeft:"-90px"} } href="#home"    >
           <img src={LOG}  />
           Cancer-check-up </Navbar.Brand>
   

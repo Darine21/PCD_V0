@@ -58,7 +58,7 @@ nav.navbar-nav a{
 
 
 var .navbar-brand  a {
-color: hsla(30, 59%, 45%, 0.902) !important;
+color: #d5b0a4 !important;
 font: weight 900px;;
 letter-spacing: 1px;
 margin-bottom: 50px;
@@ -107,5 +107,5 @@ height: autos;
 
 
 nav .navbar-nav button:hover{
-  background-color: rgb(129, 129, 169);
+  background-color: #d5b0a4;
 } 

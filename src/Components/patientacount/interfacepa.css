@@ -53,7 +53,7 @@ nav.navbar-nav a{
 
 
 var .navbar-brand  a {
-color: hsla(30, 59%, 45%, 0.902) !important;
+color: #f18f81!important;
 font: weight 100px;
 letter-spacing: 1px;
 margin-bottom: 50px;
@@ -100,10 +100,6 @@ height: autos;
 }
 
 
-
-nav .navbar-nav button:hover{
-  background-color: rgb(158, 158, 161);
-}
 .bor{
 background-color: #0c0c0c;
 text-align: center;

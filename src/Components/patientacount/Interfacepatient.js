@@ -22,7 +22,8 @@ import {BiHomeSmile} from "react-icons/bi";
 import {VscAccount} from "react-icons/vsc";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 function Interface() {
-   const [PatientName , SetPatientName] = useState('')
+  const [PatientName, SetPatientName] = useState('')
+  const [FamilyName , SetFamilyName] = useState('')
   const [doctor, setEmailDoctor] = useState('');
   const [isPainful, setIsPainful] = useState('');
   const [duration, setDuration] = useState('');
@@ -122,6 +123,7 @@ function Interface() {
   console.log(data)
   console.log(data.name)
   SetPatientName(data.name)
+  SetFamilyName(data.familyName)
   console.log(PatientName)
 })
 .catch(error => console.error(error));
@@ -229,9 +231,9 @@ useEffect(() => {
 <div className="ff">
 <Navbar expend="lg">
   <Container style={{padding:"16px"}}>
-  <Navbar.Brand   style={{fontSize:35, color:'hsla(30, 59%, 45%, 0.902)', marginTop:"-5px" } } href="#home"    >
+  <Navbar.Brand   style={{fontSize:35, color:'#f18f81', marginTop:"-5px" } } href="#home"    >
     <VscAccount style={{marginRight:"20px" , marginTop:"-5px" }} />
-     {PatientName}</Navbar.Brand>
+                {PatientName} { FamilyName}</Navbar.Brand>
 
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
   <Navbar.Collapse id="basic-navbar-nav" >

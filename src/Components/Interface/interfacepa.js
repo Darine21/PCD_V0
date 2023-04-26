@@ -57,9 +57,9 @@ function Interface() {
 
 <Navbar expand="lg" style={{ justifyContent: "space-between" }}>
   <Container style={{ fontFamily: "var(--bs-body-font-family)", padding: "15px" }}>
-    <Navbar.Brand style={{ fontSize: 40, color: "hsla(30, 59%, 45%, 0.902)", display: "inline-flex", alignItems: "center" }} href="#home">
+    <Navbar.Brand style={{ fontSize: 40, color: "#f18f81;", display: "inline-flex", alignItems: "center" }} href="#home">
       <img src={LO} alt="Logo" style={{ marginRight: "10px" }} />
-      <span>{DoctorName} {DoctorFamilyName}</span>
+      <span style={{color:"#f18f81"}}>{DoctorName} {DoctorFamilyName}</span>
     </Navbar.Brand>
 
     <Navbar.Toggle aria-controls="basic-navbar-nav" />
