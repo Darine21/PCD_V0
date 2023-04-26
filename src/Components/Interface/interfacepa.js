@@ -86,7 +86,8 @@ function Interface() {
               <div className="center" style={{marginTop:"-5px", }} >
                 
                 <h2 className="sub-title"  style={{ fontSize:"25px"}} >
-                <p style={{color:"black" ,fontSize:"28px" ,marginTop:"95px"}}>Welcome Dr {DoctorName} {DoctorFamilyName} </p>
+              <p style={{ color: "black", fontSize: "28px", marginTop: "95px" }}>Welcome Dr {DoctorName} {DoctorFamilyName} </p>
+              <br></br>
       <span style={{fontSize: "18px", fontWeight: "bold", color:"black" }}>We are honored to have you as part of our team, and we have great confidence in your expertise and dedication to fighting skin cancer. Your work is critical to the health and well-being of our patients, and we are committed to supporting you in any way we can. Together, we can make a real difference in the fight against this disease.</span>
       
                 </h2>
@@ -95,10 +96,10 @@ function Interface() {
 </div>
 <div style={{ display:"flex"}} id='agenda'>
   <Link to={"/agenda"}>
-<button className="button1" style={{marginLeft:"50px" , marginTop:"10px"}}> <BiCalendar style={{width:"50px" ,height:"50px", marginTop:"-20px"}} /> Agenda </button>
+<button className="button1" style={{marginLeft:"100px" , marginTop:"50px" , marginBlockEnd:"70px"}}> <BiCalendar style={{width:"40px" ,height:"40px", marginTop:"-10px"}} /> Agenda </button>
 </Link>
 <Link to={"/dossier"}>
-<button className="button1" style={{marginLeft:"350px" , marginTop:"10px"}}><AiOutlineFolderOpen style={{width:"50px" ,height:"50px", marginTop:"-20px"}}/> Open a file</button>
+<button className="button1" style={{marginLeft:"650px" , marginTop:"50px" , marginBlockEnd:"70px" }}><AiOutlineFolderOpen style={{width:"40px" ,height:"40px", marginTop:"-10px"}}/> Open a file</button>
 </Link>
 </div>
 

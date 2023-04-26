@@ -86,16 +86,18 @@ return(
    <div class="form-wrapper1">
   <h1>Sign In</h1>
     <form>
-      <div>
-  <input type="radio" id="patient" name="gender"  value="patient"
+      <div id="test">
+  <input type="radio" id="patiente" name="gender"  value="patient"
       
       onChange={handleUserTypeChange}></input>
-  <label for="patient">Patient &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  </label>
+  <label for="patiente">Patient &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  </label>
 
   <input type="radio" id="doctor" name="gender"  value="doctor"
       
       onChange={handleUserTypeChange}></input>
-  <label for="doctor">Doctor</label>
+        <label for="doctor">Doctor</label>
+        <br></br>
+        <br></br>
 </div>
     <div class="form-item">
       <label for="email"></label>

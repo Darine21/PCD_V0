@@ -35,6 +35,7 @@ export default function Footer({ space }) {
                   <p className="footer" style={{marginTop:"-30px"}}>
                    Pour obtenir nos dernières recommandations, abonnez-vous 
                   </p>
+                  <br></br>
                   
                   <form >
                       <input
@@ -46,7 +47,7 @@ export default function Footer({ space }) {
                        required
                        style={{width:"50%"}}
                       /> 
-                    <Button type="submit" variant="button" style={{border:" white solid 1px" , backgroundColor:"white" , marginTop:"10px"}}> save</Button>
+                    <Button type="submit" variant="button" style={{border:" white solid 1px" ,  marginTop:"10px"}}> save</Button>
                     </form>
                
                   <div className="social-list-wrap">

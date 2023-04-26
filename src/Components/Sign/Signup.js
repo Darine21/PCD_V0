@@ -3,25 +3,27 @@ import { Link } from "react-router-dom";
 import './Signup.css';
 function signup (){
     return(
+    <>
+        
+        < div className='containerrrrr' id="signup">
+           
     
-       
-        < div class="form-item" id="signup">
-            <h1 className="tiltle1">
-                Sign up As 
-            </h1> 
-       
-         
+         <div>
            <Link to={"/doctor"} >
-        <button className="bbb">
+        <button style={{
+            marginRight:"50px" 
+          }} >
          Doctor
         </button>
-        </Link >
+                    </Link >
+                    
         <Link to={"/patient"}>
-        <button className="pp">Patient</button>
+        <button >Patient</button>
             </Link>
+           </div> 
+            </div>
             
-        </div>
-       
+       </>
     
     );
 

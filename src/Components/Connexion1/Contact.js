@@ -12,14 +12,19 @@ function App() {
   return (
    
     
-    <div className="container" id="contact">
+    <div className="containerrrrr" id="contact">
+      <div>
       <Link to={"/Signin"}>
-      <button className="button1">Sign in </button>
+          <button style={{
+            marginRight:"50px" 
+          }}>Sign in </button>
       </Link>
-     
+      </div>
+      <div>
       <Link to={"/Signup"}>
       <button className="button1" onClick={handleClick}>Sign up </button>
-      </Link>
+        </Link>
+        </div>
      </div>
      
   );

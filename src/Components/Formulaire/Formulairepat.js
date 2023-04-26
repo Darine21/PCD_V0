@@ -129,8 +129,9 @@ Patient Registration
   <option value="Medenine">Medenine</option>
   <option value="Tataouine">Tataouine</option>
 </select>    
-</div>
-<div class="form-item">
+          </div>
+          <br></br>
+<div >
   <input type="radio" id="Woman" name="sex"  value="Woman"
       
       onClick={handleUserGenderChange}></input>
@@ -139,13 +140,17 @@ Patient Registration
   <input type="radio" id="Man" name="sex"  value="Man"
       
       onClick={handleUserGenderChange}></input>
-  <label for="Man">Men</label>
-</div>
+            <label for="Man">Men</label>
+            
+          </div>
+          <br></br>
 <div class="form-item">
         <label>
         <input type="number" value={phone} onChange={(e) => setphone(e.target.value)} placeholder="Phone Number" />
                     </label>
-                  </div>
+          </div>
+          <br></br>
+          
         <Link to={"/contact"}>
         <div class="button-panel" style={{marginTop:"-10px"}}>
       <input type="submit" class="button" title="Sign Up" value="  Sign-Up " onClick={handleSubmit} ></input>

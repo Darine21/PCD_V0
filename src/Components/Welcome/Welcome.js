@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const welcome =()=>{
     return(
       
-        <header >
+        <div >
            
             <section style={{marginTop:"0px"}} id="home" >
             <div className="CC" >
@@ -16,12 +16,12 @@ const welcome =()=>{
                  Thank you for visiting and taking the first step towards healthier, happier skin.    
                 </h2>
                 <Link to={"/contact"}>
-                <button className="BUTTT" style={{ fontSize:"25px"}}>CHECK YOUR SKIN  !</button>
+                <button className="BUTTT" style={{ fontSize:"20px"}}>CHECK YOUR SKIN  !</button>
                 </Link>
              </div>
             </div>
           </section>
-        </header>
+        </div>
     )
 }
 export default welcome;
