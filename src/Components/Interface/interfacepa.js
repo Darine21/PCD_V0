@@ -1,8 +1,7 @@
-
 import { useState, useEffect } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import {Navbar ,NavLink , Container , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
+import {Navbar ,NavLink , Container , Collapse,NavDropdown, Nav , Button  } from 'react-bootstrap';
 import LO from '../../Asset/ess.png';
 import "./interface.css";
 
@@ -15,69 +14,80 @@ import {AiOutlineFolderOpen} from "react-icons/ai";
 import {BiHomeSmile} from "react-icons/bi";
 import {AiOutlineDollarCircle} from "react-icons/ai";
 function Interface() {
+  const [DoctorName , SetDoctorName] = useState('')
+  const [DoctorFamilyName, SetDoctorFamilyName] = useState('');
   const navigate = useNavigate();
-     useEffect(() => {
-    const fetchDoctor = async () => {
-      let token = localStorage.getItem('Doctor token');
-     
-      if (token) {
-        fetch('http://localhost:5000/authDoctor-endpoint', {
-  method: 'GET', 
-  headers: {
-    'Authorization': `Bearer ${token}`
-  }
-})
-.then(response => response.json())
-.then(data => {
- 
-  
-  console.log(data)
-  console.log(DoctorName)
-  
-})
-.catch(error => console.error(error));
-      }
-      else {
-        navigate('/signin'); 
-      }
-    };
-    fetchDoctor();
-  }, []);
-   
-const[DoctorName, setDoctorName]=useState('');
+    useEffect(() => {
+  const fetchDoctor = async () => {
+    let token = localStorage.getItem('Doctor token');
+
+    if (token) {
+      fetch('http://localhost:5000/authDoctor-endpoint', {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(response => {
+          console.log('Response status:', response.status);
+          console.log('Response headers:', response.headers);
+          return response.json();
+        })
+        .then(data => {
+          console.log('Data:', data);
+          SetDoctorName(data.name);
+          SetDoctorFamilyName(data.familyName);
+        })
+        .catch(error => console.error(error));
+    } else {
+      navigate('/signin');
+    }
+  };
+  fetchDoctor();
+}, []);
+
+  const handleLogoutClick = () => {
+      localStorage.removeItem('Doctor token');
+      navigate('/');  
+  };
+    
     return(
         
 <>
 
-<Navbar expend="lg">
-  <Container  style={{fontfamily:"var(--bs-body-font-family)", padding:"15px" , marginLeft:"-20px"}}>
-  <Navbar.Brand   style={{fontSize:40,color:'hsla(30, 59%, 45%, 0.902)'} } href="#home"    >
-    <img src={LO} />
-    Doctor.Name </Navbar.Brand>
+<Navbar expand="lg" style={{ justifyContent: "space-between" }}>
+  <Container style={{ fontFamily: "var(--bs-body-font-family)", padding: "15px" }}>
+    <Navbar.Brand style={{ fontSize: 40, color: "hsla(30, 59%, 45%, 0.902)", display: "inline-flex", alignItems: "center" }} href="#home">
+      <img src={LO} alt="Logo" style={{ marginRight: "10px" }} />
+      <span>{DoctorName} {DoctorFamilyName}</span>
+    </Navbar.Brand>
 
-  <Navbar.Toggle aria-controls="basic-navbar-nav" />
-  <Navbar.Collapse id="basic-navbar-nav" style={{height: "10px" }}>
-    <Nav className="ml-auto" >
-      <NavLink className="active" href="#homee" style={{marginTop:"10px" , marginLeft:"190px"}}> <BiHomeSmile />Home</NavLink>
-      <Nav.Link  as={Link} to="/agenda"className="in" href="#agenda" style={{marginTop:"10px" ,marginLeft:"50px"}}> <BiCalendar />Agenda</Nav.Link>
-      <Nav.Link as={Link} to="/liste-patients" className="hw" href="#pa" style={{marginTop:"10px", marginLeft:"50px"}}><BsFillPeopleFill />Patients</Nav.Link>
-      <Nav.Link  as={Link} to ="/msg" className="med" href="#msg" style={{marginTop:"10px" , marginLeft:"50px"}}> <BsWechat /> Messages </Nav.Link>
-      <Nav.Link as={Link} to ="/tar"  className="comp" href="#comp" style={{marginTop:"10px" , marginLeft:"130px"}}><AiOutlineDollarCircle /> Accounting </Nav.Link>
-      <Nav.Link as={Link} to ="/"  className="co" href="#com" style={{marginLeft:"60px", marginTop:"10px" }}><BsFillBellFill/> Log out </Nav.Link>
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+
+    <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="ml-auto" style={{ alignItems: "center" }} >
+        <NavLink className="active" href="#homee"><BiHomeSmile /> Home</NavLink>
+        <Nav.Link as={Link} to="/agenda" className="in" href="#agenda"><BiCalendar /> Agenda</Nav.Link>
+        <Nav.Link as={Link} to="/liste-patients" className="hw" href="#pa"><BsFillPeopleFill /> Patients</Nav.Link>
+
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <Nav.Link as={Link} to="/msg" className="med" href="#msg"><BsWechat /> Messages </Nav.Link>
+          <Nav.Link as={Link} to="/tar" className="comp" href="#comp" style={{ marginLeft: "70px" }}><AiOutlineDollarCircle /> Accounting </Nav.Link>
+        </div>
+
+        <Button onClick={handleLogoutClick} style={{ marginRight: "-60px", marginLeft: "10px", padding: "8px 16px" }}><BsFillBellFill /> &nbsp; &nbsp; Log Out</Button>
       </Nav>
-   
-  </Navbar.Collapse>
- 
+    </Navbar.Collapse>
   </Container>
 </Navbar>
+
 <div className='mede'>
 
               <div className="center" style={{marginTop:"-5px", }} >
                 
                 <h2 className="sub-title"  style={{ fontSize:"25px"}} >
-                <p style={{color:"black" ,fontSize:"28px" ,marginTop:"95px"}}>"We take care of your healthy health "</p>
-      <span style={{fontSize: "18px", fontWeight: "bold", color:"black" }}>Expert care for your skin's health and early detection of skin cancer . Welcome to our practice. 
-      Providing compassionate care and expertise in skin cancer diagnosis and treatment</span>
+                <p style={{color:"black" ,fontSize:"28px" ,marginTop:"95px"}}>Welcome Dr {DoctorName} {DoctorFamilyName} </p>
+      <span style={{fontSize: "18px", fontWeight: "bold", color:"black" }}>We are honored to have you as part of our team, and we have great confidence in your expertise and dedication to fighting skin cancer. Your work is critical to the health and well-being of our patients, and we are committed to supporting you in any way we can. Together, we can make a real difference in the fight against this disease.</span>
       
                 </h2>
                 </div>

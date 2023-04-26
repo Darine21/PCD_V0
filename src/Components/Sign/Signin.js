@@ -68,6 +68,7 @@ if (userType === "patient") {
 .then(data => {
   const token = data.token;
   localStorage.setItem('Doctor token', token);
+   localStorage.setItem('doctor' , email);
   
    navigate('/Interface')
 })

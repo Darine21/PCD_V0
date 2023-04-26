@@ -18,6 +18,7 @@ import Msg from './Components/Mesangerie/Msg';
 import Visit from './Components/Dossier/Dossier';
 import Tarif from './Components/Money/Money';
 import Sensabilisation from './Components/sen/ex';
+import Modeleia from './Components/test partie ia/modeleia';
 
 const App = () => {
  
@@ -72,6 +73,9 @@ const App = () => {
         </Routes>
         <Routes>
          <Route exact path="/sensabilisation" element={<Sensabilisation/>} />
+       </Routes>
+       <Routes>
+         <Route exact path="/modele-ia" element={<Modeleia/>} />
         </Routes>
           </BrowserRouter>
           <ToastContainer />

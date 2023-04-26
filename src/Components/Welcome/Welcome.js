@@ -6,7 +6,7 @@ const welcome =()=>{
       
         <header >
            
-            <section style={{marginTop:"-40px"}} id="home" >
+            <section style={{marginTop:"0px"}} id="home" >
             <div className="CC" >
               <div className="center" style={{marginTop:"-10px", }} >
                 <h1 className="title" > WELCOME </h1>

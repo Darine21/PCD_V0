@@ -1,4 +1,3 @@
-
 import "./interfacepa.css"
 import { useState, useEffect } from 'react';
 import React from 'react';
@@ -23,38 +22,11 @@ import {BiHomeSmile} from "react-icons/bi";
 import {VscAccount} from "react-icons/vsc";
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 function Interface() {
-  const navigate = useNavigate();
-     useEffect(() => {
-    const fetchDoctor = async () => {
-      let token = localStorage.getItem('Doctor token');
-     
-      if (token) {
-        fetch('http://localhost:5000/authDoctor-endpoint', {
-  method: 'GET', 
-  headers: {
-    'Authorization': `Bearer ${token}`
-  }
-})
-.then(response => response.json())
-.then(data => {
- 
-  
-  console.log(data)
-  
-})
-.catch(error => console.error(error));
-      }
-      else {
-        navigate('/signin'); 
-      }
-    };
-    fetchDoctor();
-  }, []);
-
-  const [PatientName , SetPatientName] = useState('')
-  const [doctoremail, setEmailDoctor] = useState('');
+   const [PatientName , SetPatientName] = useState('')
+  const [doctor, setEmailDoctor] = useState('');
   const [isPainful, setIsPainful] = useState('');
   const [duration, setDuration] = useState('');
+  const [FullName, setFullName] = useState(''); 
   const [file, setFile] = useState('');
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -62,17 +34,54 @@ function Interface() {
   const [anatomicalSite, setAnatomicalSite] = useState('');
   const [result, setResult] = useState('');
   const [phone, setphone] = useState([]);
+  const navigate = useNavigate();
+  const [image, setimage] = useState([]);
+   const [doctors, setDoctors] = useState([]);
+  const [message, setMessage] = useState('');
+  const [type, setType] = useState('');
 
-  const[image,setimage]=useState([]);
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-   
-  }
-
- 
-  const handlephoneChange = (event) => {
-    setphone(event.target.value);
+  const handleAlert = (message, type) => {
+    setMessage(message);
+    setType(type);
   };
+
+  const handleAlertClose = () => {
+    setMessage('');
+    setType('');
+  };
+  // submit when choosing the doctor 
+ const handleFormSubmit = async (event) => {
+  event.preventDefault(); // prevent default form submission behavior
+
+   const formData = new FormData();
+  // create new FormData object
+   formData.append('FullName', FullName); 
+  formData.append('doctor', doctor); // add doctor email to form data
+  formData.append('phone', phone); // add phone number to form data
+  formData.append('pdf', file); // add file to form data
+
+  try {
+    const response = await fetch('http://localhost:5000/patient/choose-doctor', {
+      method: 'POST',
+      body: formData, // pass the form data as the request body
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to submit form'); // throw an error if the request fails
+    }
+
+    const data = await response.json(); // parse the response body as JSON
+    console.log(data); // log the response data
+    setphone(''); 
+    setEmailDoctor(''); 
+    setFile(null); 
+    setFullName(''); 
+  } catch (error) {
+    console.error(error); // log any errors that occur
+  }
+};
+
+
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -81,10 +90,6 @@ function Interface() {
     setAge(event.target.value);
   };
   
-
-  const handleGenderChange = (event) => {
-    setGender(event.target.value);
-  };
   const handleDoctorChange = (event) => {
     setEmailDoctor(event.target.value)
   }
@@ -93,36 +98,10 @@ function Interface() {
     setFile(event.target.files[0]);
  };
   const handleSend = (event) => {
+
     
   }
-  const settings = {
-    dots: true,
-    infinite: true,
-    autoplay: true,
-    speed: 1000,
-    swipeToSlide: true,
-    autoplaySpeed: 2000,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    responsive: [
-        {
-            breakpoint: 992,
-            settings: {
-                slidesToShow: 2,
-                slidesToScroll: 1,
-                infinite: true,
-                dots: true,
-            },
-        },
-        {
-            breakpoint: 576,
-            settings: {
-                slidesToShow: 1,
-                slidesToScroll: 1,
-            },
-        },
-    ],
-};
+  // verifier l'authetification
    
   useEffect(() => {
     const fetchPatient = async () => {
@@ -154,7 +133,25 @@ function Interface() {
     fetchPatient();
   }, []);
    
-   
+  // load all the doctors email in the data base
+ 
+  
+useEffect(() => {
+    async function fetchDoctors() {
+      const response = await fetch("http://localhost:5000/doctoremails"); // replace with your server endpoint
+      const data = await response.json();
+      console.log(data); 
+      console.log(data.emails)
+      setDoctors(data.emails);
+      console.log(doctors); 
+    }
+    fetchDoctors();
+}, []);
+   useEffect(() => {
+  console.log("doctors: ", doctors);
+  }, [doctors]);
+ 
+
   
   const handleLogoutClick = () => {
       localStorage.removeItem('token');
@@ -171,39 +168,38 @@ function Interface() {
     setFile('');
     setphone('');
     }; 
-   
 
-  const generatePDF = (item) => {
-    const API_ENPOINT = process.env.API_ENPOINT ||"http://localhost:5000/upload";
-    const documentDefinition = {
-      
-      content: [
-        { text: 'Patient Information' },
-        { text: `Name: ${name}` },
-        { text: `Age: ${age}` },
-        { text: `Gender: ${gender}` },
-        { text: `Anatomical Site: ${anatomicalSite}` },
-        { text: `phone: ${phone}`},
-        { image: `${API_ENPOINT}/${item.receipt}`}
-      ],
-    
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
-        }
-      }
-    };
-    try {
-      const pdfDocGenerator = pdfMake.createPdf(documentDefinition);
-      pdfDocGenerator.download();
-      console.log("ee");
-    } catch (error) {
-      console.error('Error generating PDF: ', error);
-    }
-  };
-  const doctors = [
+  const settings = {
+    dots: true,
+    infinite: true,
+    autoplay: true,
+    speed: 1000,
+    swipeToSlide: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    responsive: [
+        {
+            breakpoint: 992,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                infinite: true,
+                dots: true,
+            },
+        },
+        {
+            breakpoint: 576,
+            settings: {
+                slidesToShow: 1,
+                slidesToScroll: 1,
+            },
+        },
+    ],
+};
+   
+ 
+  const Alldoctors = [
     {
       name: "Dr Sana ENNOURI EP SELLAMI",
       specialty: "Specialist in Medical Oncolog",
@@ -244,25 +240,36 @@ function Interface() {
       <Nav.Link className="in" href="#maladie" style={{marginTop:"-10px" ,marginLeft:"10px"}}> <FaPortrait/> Check for Cancer</Nav.Link>
       <Nav.Link  className="hw" href="#medecin" style={{marginTop:"-10px", marginLeft:"15px"}}><FaUserMd/> Our doctors</Nav.Link>
       <Nav.Link  className="med" href="#choose" style={{marginTop:"-10px" , marginLeft:"15px"}}> <BsPersonFillCheck/>Choose a doctor </Nav.Link>
-      <Nav.Link  className="co" href="#log" style={{marginRight:"-70px", marginTop:"-10px", marginLeft:"80px"}}><BsFillBellFill/> Log out </Nav.Link>
+              
+                                <Button onClick={handleLogoutClick}  style={{ marginRight: "-70px",  marginLeft: "90px" }}><BsFillBellFill />  &nbsp;  &nbsp; Log Out</Button>
       </Nav>
    
   </Navbar.Collapse>
   </Container>
 </Navbar>
 <div className="AA">
-              <div className="center" style={{marginTop:"-5px", }} >
-                <h1 className="title" > WELCOME </h1>
+                    <div className="center" style={{ marginTop: "-5px", }} >
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                        <br></br>
+                <h1 className="title" > WELCOME ! </h1>
                 <h2 className="sub-title"  style={{ fontSize:"25px"}} >
-                <p style={{color:"black" ,fontSize:"28px" ,marginTop:"15px"}}>"Your skin is your lifelong coat. Take care of it, examine it regularly, treat it well and it will protect you forever."</p>
-      <span style={{fontSize: "18px", fontWeight: "bold", color:"black" }}>Dr. Whitney Bowe, American dermatologist</span>
+                <p style={{color:"black" ,fontSize:"28px" ,marginTop:"15px"}}>Your skin is your lifelong coat. Take care of it, examine it regularly, treat it well and it will protect you forever.</p>
+      
       
                 </h2>
                 </div>
                 </div>
-<section id="maladie">
-<Col md={6} style={{textAlign:"center" }} >
-          <Card style={{position:"relative" , width:"800px" , marginLeft:"300px" }}>
+                <div id="photo"> 
+<section id="maladie" >
+<Col md={6} >
+          <Card >
             <Card.Header  style={{backgroundColor:"#d3a573"}}>
               <h5 >Check for Cancer</h5>
             </Card.Header>
@@ -335,7 +342,7 @@ function Interface() {
             </Card.Body>
             {image && (
               <Card.Footer>
-              <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}}onClick={generatePDF}>Generate PDF</Button>
+              <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}}>Generate PDF</Button>
               </Card.Footer>
 )}
       </Card>
@@ -363,37 +370,64 @@ function Interface() {
     <Row>
         <section id="choose">
         <Col md={6}>
-          <Card  style={{position:"relative" , width:"800px" , marginLeft:"300px" }}>
+          <Card  >
             <Card.Header style={{backgroundColor:"#d3a573"}}>
               <h5>Choose a Doctor</h5>
             </Card.Header>
             <Card.Body>
-              <Form onSubmit={handleFormSubmit}>
+               <Form onSubmit={handleFormSubmit}>
+               
                 <Form.Group>
-                  <Form.Label>Doctor</Form.Label>
-                  <Form.Select value={doctoremail} onChange={handleDoctorChange}>
-                    <option>Select a Doctor</option>
-                    <option value={doctoremail}>Doctor Email</option>
-                    
-                  </Form.Select>
-                </Form.Group>
+                <Form.Label>Full Name </Form.Label>
+  <Form.Control type="String" value={FullName} onChange={(e) => setFullName(e.target.value)} />
+</Form.Group>
               <Form.Group>
   <Form.Label>Your phone</Form.Label>
   <Form.Control type="tel" value={phone} onChange={(e) => setphone(e.target.value)} />
 </Form.Group>
+  <Form.Group>
+      <Form.Label>Doctor</Form.Label>
+      <Form.Select value={doctor} onChange={handleDoctorChange}>
+        <option>Select a Doctor</option>
+        {doctors.map((docto) => (
+          <option key={docto} value={docto} onChange={handleDoctorChange} >
+            {docto}
+          </option>
+          
+        ))}
+      </Form.Select>
+    </Form.Group>
 
                 <Form.Group>     
                 <Form.Label>Upload your PDF </Form.Label>
                  <Form.Control type="file" onChange={handleFileChange} />
                  </Form.Group>
           <br></br>
-                <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}} onClick={handleSend}  > Send  </Button>
+                <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}} onClick={() => handleAlert('Successfully sent!', 'success')}  > Send  </Button>
+             
+               
+
+
               </Form>
             </Card.Body>
           </Card>
-        </Col>
-        </section>
-        </Row>
+                            </Col>
+                            <br></br>
+                            
+    
+                        </section>
+                          <div >
+      {message && (
+        <div className={`alert alert-${type} alert-dismissible`} role="alert" style={{ maxWidth: '750px' , marginLeft: '365px'}} >
+          <div>{message}</div>
+          <button type="button" className="btn-close" onClick={handleAlertClose}></button>
+        </div>
+      )}
+      
+    </div>
+                </Row>
+                 
+                    </div>
 </div>
 
 </>

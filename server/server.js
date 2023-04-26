@@ -1,23 +1,25 @@
 const express = require('express');
-const mongoose = require('mongoose');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const upload = multer();
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 };
-const auth = require('./auth'); 
 const Patient1 = require('./models/Patient.js'); 
 const Patient = require('./routes/patientRoutes'); 
 const Formulaire = require('./routes/formulaireRouter');
 const Doctor = require('./routes/doctorRouter'); 
 const Doctor1 = require('./models/Doctor.js')
 const dbConnect = require("./db/dbConnect");
+const chooseDoctor = require('./models/ChooseDoctor.js')
 
 
 const app = express();
 
-
+const bodyParser = require("body-parser");
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -54,8 +56,6 @@ app.use(
 )
 
 
-var bodyParser = require('body-parser');
-
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -63,26 +63,9 @@ app.get('/', (_req, res) => {
   res.json({ hello: "world" }); 
   
 });
-const storage = multer.diskStorage({
-  destination: function (req,file,cb){
-    cb(null,'./uploads/');
-  }, 
-  filename:function(req,file,cb){
-    const filename = `${file.originalname}`;
-    cb(null,filename);
-  }
-});
 
-const upload=multer({storage}).single('receipt');
-// Routes
 
-app.post("/upload", upload ,(req,res)=>{
-  const { file } = req;
-  res.send({
-    file: file.originalname,
-    path: file.path
-  });
-});
+
 
 app.post("/patient/signin", Patient.signin); 
 app.post("/patient/signup", Patient.signup);
@@ -92,7 +75,7 @@ app.post("/doctor/signup", Doctor.signup);
 
 app.get("/patient", Patient.get );
 app.get("/patien/form",Formulaire.get);
-app.post("/formajouter",upload,Formulaire.post);
+app.get("/doctoremails", Doctor.doctoremails); 
 app.post("/ajouterpatient",Patient.post);
 app.get('/sendMail', Doctor.sendMail);
 app.get('/resetPassword', Doctor.resetPassword);
@@ -140,13 +123,49 @@ app.get('/authDoctor-endpoint', async (req, res) => {
       console.log('No doctor found');
     }
 
-    res.json();
+    res.json(doctor);
 
   } catch (error) {
     console.log(error);
     res.status(401).send({ error: 'Authentication failed' });
   }
 });
+
+
+app.post('/patient/choose-doctor', upload.single('pdf'), async (req, res) => {
+  const { FullName, phone, doctor } = req.body;
+  const pdf = req.file.buffer;
+
+  try {
+    const form = new chooseDoctor({
+      FullName,
+      phone,
+      doctor,
+      pdf
+    });
+
+    await form.save();
+
+    res.status(201).send(form);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send(error);
+  }
+});
+
+app.get('/Listepatients/:email', (req, res) => {
+  
+  chooseDoctor.find({ doctor: req.params.email })
+    .then(PatientDetails => {
+      res.json(PatientDetails);
+    })
+    .catch(error => {
+      console.log(error);
+      res.status(500).json({ error: 'Internal server error' });
+    });
+});
+
+
 
 
 

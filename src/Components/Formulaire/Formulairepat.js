@@ -51,6 +51,7 @@ function InscriptionPatient() {
         console.log(response);
       if (response.data) {
         toast.success('Account created successfully!');
+        
       
       // Redirect to dashboard or login page
     }

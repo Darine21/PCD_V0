@@ -13,7 +13,7 @@ const DoctorSchema = new Schema({
     Langage: {type:String ,require:false},
     Specialities:{ type:String , require:true},
     year_of_ex:{type:Number,require:true},
-    Image_dim: { type: Buffer, required: true },
+    Image_dim: { type: String, required: true },
   });
 
 const Doctor = model('Doctor', DoctorSchema);
