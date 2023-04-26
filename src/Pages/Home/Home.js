@@ -6,12 +6,8 @@ import Footere from '../../Components/Footere/Footer';
 import Bloc_Doctor from '../../Components/Doctor/Bloc_Doctor.js';
 import Bar from '../../Components/Navvv/Bar';
 import Howit from '../../Components/Howit/Howit';
-import Formmedcien  from'../../Components/Formulaire/Formumedcien';
-import Patient from '../../Components/Formulaire/Formulairepat';
-import Liste from '../../Components/Liste/Liste.js';
-import Msg from '../../Components/Mesangerie/Msg';
-import Copm from '../../Components/Money/Money';
-import Visit from '../../Components/Dossier/Dossier';
+import Sensabilisation from '../../Components/sen/ex';
+// import Sensabilisation2 from '../../Components/Sensabilisation/Sensabilisation';
  class Home extends Component{
     render(){
       return (
