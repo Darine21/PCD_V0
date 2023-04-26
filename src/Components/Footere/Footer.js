@@ -12,7 +12,7 @@ import {BsInstagram} from "react-icons/bs";
 import {BsLinkedin} from "react-icons/bs";
 import {BsTwitter} from "react-icons/bs";
 import {FaFacebookF} from "react-icons/fa";
-import { MDBFooter, MDBContainer, MDBRow, MDBCol, MDBIcon } from 'mdb-react-ui-kit';
+
 export default function Footer({ space }) {
   return (
     <>

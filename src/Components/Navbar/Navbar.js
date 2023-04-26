@@ -29,7 +29,7 @@ function ColorSchemesExample() {
             <NavLink className="in" href="#info" style={{marginTop:"-5px",marginRight:"-11px", marginLeft:"14px"}} > <BiDonateHeart/> Sensitization</NavLink>
             <Nav.Link className="hw" href="#work" style={{marginTop:"-5px" ,marginRight:"-11px", marginLeft:"14px"}} > <AiOutlineBulb/>How it works</Nav.Link>
             <Nav.Link className="med" href="#medecin" style={{marginTop:"-5px" ,marginRight:"5px", marginLeft:"14px"}} ><AiOutlineUsergroupDelete/> Our Doctors </Nav.Link>
-            <Nav.Link className="med" href="#medecinn" style={{marginTop:"-5px" , marginLeft:"-11px",marginRight:"-6px"}} ><BsGear/> About us </Nav.Link>
+            <Nav.Link className="med" href="#medecinn" style={{marginTop:"-5px" , marginLeft:"-11px",marginRight:"-1px"}} ><BsGear/> About us </Nav.Link>
             {/* <HashLink smooth to="#test">
                Link to Hash Fragment
             </HashLink> */}
@@ -45,11 +45,11 @@ function ColorSchemesExample() {
         </Navbar.Collapse>
        
         </Container>
-        
-      
-
+     
       </Navbar>
+
       
+     
     </>
   );
 }

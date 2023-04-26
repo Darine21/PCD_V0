@@ -1,10 +1,10 @@
-import React, { Component, Fragment, } from 'react';
+import React, { useRef, Fragment, } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Contact from './Components/Connexion1/Contact';
 import { BrowserRouter, Routes } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-import { useState , createContext} from 'react';
+
 import Sign from './Components/Sign/Signin';
 import Signn from './Components/Sign/Signup';
 import Home from './Pages/Home/Home';
@@ -17,6 +17,7 @@ import Liste from './Components/Liste/Liste.js';
 import Msg from './Components/Mesangerie/Msg';
 import Visit from './Components/Dossier/Dossier';
 import Tarif from './Components/Money/Money';
+import Sensabilisation from './Components/sen/ex';
 import Modeleia from './Components/test partie ia/modeleia';
 
 const App = () => {
@@ -70,11 +71,14 @@ const App = () => {
         <Routes>
          <Route exact path="/list-patient" element={<Liste/>} redirectTo="/Paccount" />
         </Routes>
+        <Routes>
+         <Route exact path="/sensabilisation" element={<Sensabilisation/>} />
+       </Routes>
        <Routes>
          <Route exact path="/modele-ia" element={<Modeleia/>} />
         </Routes>
           </BrowserRouter>
-           <ToastContainer />
+          <ToastContainer />
      
         </> 
         
