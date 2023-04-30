@@ -155,9 +155,34 @@ useEffect(() => {
     setFile('');
     setphone('');
     }; 
-   
+   const SubmitPDF =()=>{
+    alert('hh')
+   }
 
+    const generatePDF = () => {
+      alert('ee')
+      const documentDefinition = {
+        content: [
+          { text: 'Patient Information', style: 'header' },
+          { text: `Name: ${name}` },
+          { text: `Age: ${age}` },
+          { text: `Gender: ${gender}` },
+          { text: `Anatomical Site: ${anatomicalSite}` }
+        ],
+      
+        styles: {
+          header: {
+            fontSize: 18,
+            bold: true,
+            margin: [0, 0, 0, 10]
+          }
+        }
+      };
+    
+      pdfMake.createPdf(documentDefinition).download();
+    };
   
+    
 
  
   return (
@@ -299,7 +324,7 @@ useEffect(() => {
             </Card.Body>
             {image && (
               <Card.Footer>
-              <Button onClick={generatePDF}>Generate PDF</Button>
+              <Button onClick={(e)=>generatePDF(e)}>Generate PDF</Button>
               </Card.Footer>
 )}
         

@@ -3,7 +3,24 @@ const session = require('express-session')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Formulaire = require('../models/Formulaire.js');
+const multer =require ('multer');
 const JWT_EXPIRATION_TIME = process.env.JWT_EXPIRATION_TIME;
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname)
+  }
+});
+const fileFiltre = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true);
+  } else {
+      cb(null, false)
+  }
+}
+const upload = multer({ storage: storage, limits: { fileSize: 1024 * 1024 * 5 }, fileFilter: fileFiltre });
 
 const app = express();
 
@@ -16,23 +33,24 @@ const get = async(req ,res)=>{
     }
   };
   const post= async (req, res) => {
-    const {email, anatomicalSile , Name_medcien , description,gender,age,mypdf}= req.body;
+    const {email, age,anatomicalSile,Isthespotpainful , Howlonghasthespotbeenpresent,gender,image}= req.body;
     const {file} = req;
     const formulaire = new Formulaire({
-      email,
-      anatomicalSile,
-      receipt: (file && file.path),
-      Name_medcien,
-      description,
-      gender,
-      age
+      email:email,
+      age:16,
+      image:image,
+      gender:"gender",
+      anatomicalSile:"anatomicalSile",
+      Isthespotpainful:"Isthespotpainful",
+      Howlonghasthespotbeenpresent:'Howlonghasthespotbeenpresent',
+      receipt: (file && image),
       // mypdf
 
     });
   
     try {
-      const newFormulaire = await formulaire.save();
-      res.status(201).json(newFormulaire);
+      // const newFormulaire = await formulaire.save();
+      res.status(201).json(formulaire);
     } catch (err) {
       res.status(400).json({ message: err.message });
     }

@@ -1,17 +1,14 @@
 import "./interfacepa.css"
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useRef } from 'react';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import { PDFExport } from '@progress/kendo-react-pdf';
 import axios from 'axios';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import "./Bloc_Doctor.css";
-import ava01 from "../../Asset/slimo.jpg";
-import ava02 from "../../Asset/SOFIAN.webp";
-import ava03 from "../../Asset/dr-mazen.webp";
-import ava04 from "../../Asset/aaaa.jpg";
 import {Navbar ,NavLink , Collapse,NavDropdown, Nav  } from 'react-bootstrap';
 import {FaPortrait} from "react-icons/fa";
 import {BsPersonFillCheck} from "react-icons/bs";
@@ -222,8 +219,48 @@ useEffect(() => {
    
   ];
 
+  const generatePDF = () => {
+    const documentDefinition = {
+      content: [
+        { text: 'Patient Information', style: 'header' },
+        { text: `Name: ${name}` },
+        { text: `Age: ${age}` },
+        { text: `Gender: ${gender}` },
+        { text: `Anatomical Site: ${anatomicalSite}` },
+        {
+          image:  `${file}`,
+          margin: [0, 20, 0, 0],
+          alignment: 'center',
+         }
+      ],
+    
+      styles: {
+        header: {
+          fontSize: 18,
+          bold: true,
+          margin: [0, 0, 0, 10]
+        }
+      }
+    };
+  
+    pdfMake.createPdf(documentDefinition).download();
+  };
+  const pdfExportComponent = useRef(null);
+  const [imagePDF, setImagePDF] = useState('');
+  const handleExportPDF = async () => {
+    if (pdfExportComponent.current) {
+      const fileName = 'http://localhost:5000/' + file.name;
+      const formData = new FormData();
+      formData.append('image', fileName)
+      formData.append('img', file)
+      const res = await axios.post('http://localhost:5000/formulaire', formData)
+      console.log(res.data);
+      setImagePDF(res.data.receipt)
 
-   
+
+      pdfExportComponent.current.save();
+    }
+  };
     
     return(
         
@@ -272,7 +309,7 @@ useEffect(() => {
 <section id="maladie" >
 <Col md={6} >
           <Card >
-            <Card.Header  style={{backgroundColor:"#d3a573"}}>
+            <Card.Header  style={{backgroundColor:"#f18f81"}}>
               <h5 >Check for Cancer</h5>
             </Card.Header>
             <Card.Body>
@@ -337,14 +374,39 @@ useEffect(() => {
                   <Form.Control type="file" name='receipt' onChange={handleFileChange} />
                 </Form.Group>
                 <br></br>
-                              <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}} >Get Result &nbsp;</Button>
+                              <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} >Get Result &nbsp;</Button>
                               
                               <Button variant="secondary" className="ml-2" style={{marginLeft:"10px"}} onClick={handleReset}>Reset</Button>
               </Form>
             </Card.Body>
             {image && (
               <Card.Footer>
-              <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}}>Generate PDF</Button>
+              <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={generatePDF} >Generate PDF</Button>
+              
+              <div>
+      <button onClick={handleExportPDF}>Export PDF</button>
+      <div
+                        style={{
+                          position: "absolute",
+                          left: "-1000px",
+                          top: 0,
+                        }}
+                      >
+                        <PDFExport
+                          ref={pdfExportComponent}
+                          paperSize="A4"
+                          fileName="my-document.pdf"
+                        >
+                          <h1> Patient Information </h1>
+                          <p> Name: {name} </p>
+                          <p> Age: {age} </p>
+                          <p> Gender: {gender} </p>
+                          <p> Anatomical Site: {anatomicalSite} </p>
+                          <center><img src={imagePDF} width={'400px'} height={'400px'} alt="My Image" /></center>
+                        </PDFExport>
+                      </div>
+    </div>
+
               </Card.Footer>
 )}
       </Card>
@@ -373,7 +435,7 @@ useEffect(() => {
         <section id="choose">
         <Col md={6}>
           <Card  >
-            <Card.Header style={{backgroundColor:"#d3a573"}}>
+            <Card.Header style={{backgroundColor:"#f18f81"}}>
               <h5>Choose a Doctor</h5>
             </Card.Header>
             <Card.Body>
@@ -405,7 +467,7 @@ useEffect(() => {
                  <Form.Control type="file" onChange={handleFileChange} />
                  </Form.Group>
           <br></br>
-                <Button type="submit" variant="button" style={{backgroundColor:"#d3a573"}} onClick={() => handleAlert('Successfully sent!', 'success')}  > Send  </Button>
+                <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={() => handleAlert('Successfully sent!', 'success')}  > Send  </Button>
              
                
 

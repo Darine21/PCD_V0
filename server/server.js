@@ -2,10 +2,28 @@ const express = require('express');
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const upload = multer();
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
 };
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+      cb(null, './uploads/');
+  },
+  filename: function (req, file, cb) {
+      cb(null, file.originalname)
+  }
+});
+const fileFiltre = (req, file, cb) => {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/png') {
+      cb(null, true);
+  } else {
+      cb(null, false)
+  }
+}
+const upload = multer({ storage: storage, limits: { fileSize: 1024 * 1024 * 5 }, fileFilter: fileFiltre });
+
+
 const Patient1 = require('./models/Patient.js'); 
 const Patient = require('./routes/patientRoutes'); 
 const Formulaire = require('./routes/formulaireRouter');
@@ -36,7 +54,9 @@ const mongoDBstore = new MongoDBStore({
   uri: process.env.DB_URL,
   collection: 'mySessions',
 })
-
+app.use(express.json());
+app.use(express.urlencoded({extended: true}));
+app.use('/uploads',express.static('uploads'))
 
 
 
@@ -66,7 +86,6 @@ app.get('/', (_req, res) => {
 
 
 
-
 app.post("/patient/signin", Patient.signin); 
 app.post("/patient/signup", Patient.signup);
 
@@ -75,6 +94,7 @@ app.post("/doctor/signup", Doctor.signup);
 
 app.get("/patient", Patient.get );
 app.get("/patien/form",Formulaire.get);
+app.post("/formulaire", upload.single('img'),Formulaire.post )
 app.get("/doctoremails", Doctor.doctoremails); 
 app.post("/ajouterpatient",Patient.post);
 app.get('/sendMail', Doctor.sendMail);
@@ -82,7 +102,7 @@ app.get('/resetPassword', Doctor.resetPassword);
 app.get('/auth-endpoint', async (req, res) => {
   try {
     const token = req.header('Authorization');
-    const cleanToken = token.replace('Bearer ', '');
+    const cleanToken = token.replace('Bearer ', 'TOKEN_STRING');
 
     if (!token) {
       throw new Error('No token provided');
@@ -108,7 +128,7 @@ app.get('/auth-endpoint', async (req, res) => {
 app.get('/authDoctor-endpoint', async (req, res) => {
   try {
     const token = req.header('Authorization');
-    const cleanToken = token.replace('Bearer ', '');
+    const cleanToken = token.replace('Bearer ', 'TOKEN_STRING');
 
     if (!token) {
       throw new Error('No token provided');
@@ -164,8 +184,6 @@ app.get('/Listepatients/:email', (req, res) => {
       res.status(500).json({ error: 'Internal server error' });
     });
 });
-
-
 
 
 
