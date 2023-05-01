@@ -375,9 +375,11 @@ useEffect(() => {
           
               <Card.Footer>
               
+              {/* <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={generatePDF} >Generate PDF</Button> */}
               
               <div>
       <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={handleExportPDF}>Export PDF</Button>
+      <Button  type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={handleExportPDF}>Export PDF</Button>
       <div
                         style={{
                           position: "absolute",
