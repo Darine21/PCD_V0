@@ -30,13 +30,17 @@ function Interface() {
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
   const [anatomicalSite, setAnatomicalSite] = useState('');
-  const [result, setResult] = useState('');
+ 
   const [phone, setphone] = useState([]);
   const navigate = useNavigate();
   const [image, setimage] = useState([]);
    const [doctors, setDoctors] = useState([]);
   const [message, setMessage] = useState('');
   const [type, setType] = useState('');
+ const [selectedFile, setSelectedFile] = useState(null);
+  const [result, setResult] = useState(null);
+  const [predcitedClass, setPredcitedClass] = useState(''); 
+  const [probability, setProbability] = useState('');  
 
   const handleAlert = (message, type) => {
     setMessage(message);
@@ -78,7 +82,9 @@ function Interface() {
     console.error(error); // log any errors that occur
   }
 };
-
+ const handleFileInput = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
 
   const handleNameChange = (event) => {
     setName(event.target.value);
@@ -99,7 +105,26 @@ function Interface() {
 
     
   }
-  // verifier l'authetification
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('imagefile', selectedFile);
+
+    try {
+      const res = await axios.post('http://localhost:2000/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+      setResult(res.data);
+      setImagePDF(result.image_data)
+      setProbability(result.probability); 
+      setPredcitedClass(result.predicted_class); 
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
    
   useEffect(() => {
     const fetchPatient = async () => {
@@ -198,53 +223,6 @@ useEffect(() => {
 };
    
  
-  const Alldoctors = [
-    {
-      name: "Dr Sana ENNOURI EP SELLAMI",
-      specialty: "Specialist in Medical Oncolog",
-      image: "https://imagecdn.med.ovh/unsafe/130x130/filters:format():quality(100):blur(0)/https://www.med.tn/uploads/offices/thumbnail/217198_dr-sana-ennouri-ep-sellami_1664125876_1543_1612.jpg",
-      description: "Diploma in Clinical Oncology (Gustave Roussy Institute),Interuniversity Diploma in Oncology,Gynecological and Breast Oncology Diploma (University of Paris)Diploma in ORL Oncology,diploma in Tumors of the Locomotor System,ESMO Examination Certificates,Address Route El Ain km 2, Medical Pole Building (opposite El Alya Clinic), 3000, Sfax, Tunisia.,Tel: +216 74 455 125 ,Mobile: +216 25 453 10 ,Email: sanaennouri@live.fr"
-    },
-    {
-      name: "Dr.Sofien AYADI",
-      specialty: "Digestive surgery since 2007.",
-      image: " https://www.drsofienayadi.com/wp-content/uploads/2022/03/dr-ayadi-sofiene-chirurgie-obesite-tunisie.jpg",
-      description: "He has completed intensive training courses in bariatric surgery at IRCAD (Strasbourg) and was a former intern in bariatric surgery at ULB University in Brussels in 2008. He was also a former intern at Gustave Roussy Institute, Villejuif Paris, in digestive oncological surgery. With a registration number of 14537 in the order of physicians, he is recognized for his expertise in the field of digestive and visceral surgery."},
-    {
-      name: "Dr Hatem Bouzaiene",
-      specialty: "Professor in Cancer Surgery, Salah Azaiez Institute, Faculty of Medicine of Tunis..",
-      image: "https://i0.wp.com/lapresse.tn/wp-content/uploads/2020/11/hatembouzien.jpg?fit=850%2C491&ssl=1",
-      description: "Dr. John Doe is a renowned cardiologist with over 20 years of experience in the field. He has published numerous papers on heart disease and has been recognized for his contributions to the field. He is known for his patient-centered approach and his ability to explain complex medical concepts in a way that is easy for patients to understand.",
-    },
-   
-  ];
-
-  const generatePDF = () => {
-    const documentDefinition = {
-      content: [
-        { text: 'Patient Information', style: 'header' },
-        { text: `Name: ${name}` },
-        { text: `Age: ${age}` },
-        { text: `Gender: ${gender}` },
-        { text: `Anatomical Site: ${anatomicalSite}` },
-        {
-          image:  `${file}`,
-          margin: [0, 20, 0, 0],
-          alignment: 'center',
-         }
-      ],
-    
-      styles: {
-        header: {
-          fontSize: 18,
-          bold: true,
-          margin: [0, 0, 0, 10]
-        }
-      }
-    };
-  
-    pdfMake.createPdf(documentDefinition).download();
-  };
   const pdfExportComponent = useRef(null);
   const [imagePDF, setImagePDF] = useState('');
   const handleExportPDF = async () => {
@@ -255,7 +233,9 @@ useEffect(() => {
       formData.append('img', file)
       const res = await axios.post('http://localhost:5000/formulaire', formData)
       console.log(res.data);
-      setImagePDF(res.data.receipt)
+      setImagePDF(res.data.receipt); 
+      setPredcitedClass(predcitedClass); 
+      setProbability(probability);  
 
 
       pdfExportComponent.current.save();
@@ -268,8 +248,8 @@ useEffect(() => {
 <div className="ff">
 <Navbar expend="lg">
   <Container style={{padding:"16px"}}>
-  <Navbar.Brand   style={{fontSize:35, color:'#f18f81', marginTop:"-5px" } } href="#home"    >
-    <VscAccount style={{marginRight:"20px" , marginTop:"-5px" }} />
+  <Navbar.Brand   style={{fontSize:35, color:'#f18f81', marginTop:"-10px" } }  >
+    <VscAccount style={{marginRight:"20px" , marginTop:"-10px" }} />
                 {PatientName} { FamilyName}</Navbar.Brand>
 
   <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -369,46 +349,68 @@ useEffect(() => {
 
        
                              
-                   <Form.Group>
-                  <Form.Label>Upload a Photo</Form.Label>
-                  <Form.Control type="file" name='receipt' onChange={handleFileChange} />
-                </Form.Group>
-                <br></br>
-                              <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} >Get Result &nbsp;</Button>
+                   
+              </Form>
+                  </Card.Body>
+                  <div>
+                  <Form  onSubmit={handleSubmit} >
+                  <label>Upload a Photo</label>
+                    <input type="file" name='receipt' onChange={handleFileInput} />
+                     <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} >Get Result &nbsp;</Button>
                               
                               <Button variant="secondary" className="ml-2" style={{marginLeft:"10px"}} onClick={handleReset}>Reset</Button>
-              </Form>
-            </Card.Body>
-            {image && (
+                </Form>
+                  <br></br>
+                  {result && (
+        <div>
+          <img src={`data:image/jpeg;base64,${result.image_data}`} alt="" />
+          <p>Predicted class: {result.predicted_class}</p>
+          <p>Probability: {result.probability}</p>
+                      </div>
+                      
+                    )}
+                    </div>
+                  <br></br>
+                  <br></br>
+          
               <Card.Footer>
-              <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={generatePDF} >Generate PDF</Button>
+              
               
               <div>
-      <button onClick={handleExportPDF}>Export PDF</button>
+      <Button type="submit" variant="button" style={{backgroundColor:"#f18f81"}} onClick={handleExportPDF}>Export PDF</Button>
       <div
                         style={{
                           position: "absolute",
                           left: "-1000px",
                           top: 0,
+                          font: 50 , 
                         }}
                       >
                         <PDFExport
                           ref={pdfExportComponent}
                           paperSize="A4"
-                          fileName="my-document.pdf"
+                          fileName={PatientName}
                         >
                           <h1> Patient Information </h1>
                           <p> Name: {name} </p>
                           <p> Age: {age} </p>
                           <p> Gender: {gender} </p>
                           <p> Anatomical Site: {anatomicalSite} </p>
-                          <center><img src={imagePDF} width={'400px'} height={'400px'} alt="My Image" /></center>
+                          <br></br>
+                          
+                          <center><img src={`data:image/jpeg;base64 , ${imagePDF}`} width={'300px'} height={'300px'} alt="My Image" /></center>
+                          
+                          <br></br>
+                          <p> Predcited Class : {predcitedClass} </p>
+                          <p> Probability : {probability} </p>
+                          <br></br>
+                          <br></br>
                         </PDFExport>
                       </div>
     </div>
 
               </Card.Footer>
-)}
+
       </Card>
         </Col>
         </section>
